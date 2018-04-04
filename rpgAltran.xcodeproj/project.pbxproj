@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		088620F715425D531FEB1D2F /* Pods_rpgAltran.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CAA0D119482B455DE82CD19 /* Pods_rpgAltran.framework */; };
+		65039CF8207540A900F22087 /* GnomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65039CF7207540A900F22087 /* GnomeTableViewCell.swift */; };
 		65318AEA207118EB007144EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318AE9207118EB007144EA /* AppDelegate.swift */; };
 		65318AEC207118EB007144EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318AEB207118EB007144EA /* ViewController.swift */; };
 		65318AEF207118EB007144EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65318AED207118EB007144EA /* Main.storyboard */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5CAA0D119482B455DE82CD19 /* Pods_rpgAltran.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_rpgAltran.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65039CF7207540A900F22087 /* GnomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnomeTableViewCell.swift; sourceTree = "<group>"; };
 		65318AE6207118EB007144EA /* rpgAltran.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rpgAltran.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65318AE9207118EB007144EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65318AEB207118EB007144EA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -28,6 +32,8 @@
 		65318AFC20714D5B007144EA /* Gnome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gnome.swift; sourceTree = "<group>"; };
 		65318AFE2071559D007144EA /* Brastlewark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brastlewark.swift; sourceTree = "<group>"; };
 		657A61CD2073F46F0064A50D /* ViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUtils.swift; sourceTree = "<group>"; };
+		86CCF262CC2B1E1B71A5754E /* Pods-rpgAltran.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rpgAltran.release.xcconfig"; path = "Pods/Target Support Files/Pods-rpgAltran/Pods-rpgAltran.release.xcconfig"; sourceTree = "<group>"; };
+		C5542E5FDB04C5AD962D5911 /* Pods-rpgAltran.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rpgAltran.debug.xcconfig"; path = "Pods/Target Support Files/Pods-rpgAltran/Pods-rpgAltran.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +41,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				088620F715425D531FEB1D2F /* Pods_rpgAltran.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27DDF0998CEE8C84FEBC4FEB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5CAA0D119482B455DE82CD19 /* Pods_rpgAltran.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		65318ADD207118EB007144EA = {
 			isa = PBXGroup;
 			children = (
 				65318AE8207118EB007144EA /* rpgAltran */,
 				65318AE7207118EB007144EA /* Products */,
+				A1523C4981542A35DDCC5ACA /* Pods */,
+				27DDF0998CEE8C84FEBC4FEB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,6 +85,7 @@
 				65318AF0207118EE007144EA /* Assets.xcassets */,
 				65318AF2207118EE007144EA /* LaunchScreen.storyboard */,
 				65318AF5207118EE007144EA /* Info.plist */,
+				65039CF7207540A900F22087 /* GnomeTableViewCell.swift */,
 			);
 			path = rpgAltran;
 			sourceTree = "<group>";
@@ -89,6 +107,15 @@
 			path = utils;
 			sourceTree = "<group>";
 		};
+		A1523C4981542A35DDCC5ACA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C5542E5FDB04C5AD962D5911 /* Pods-rpgAltran.debug.xcconfig */,
+				86CCF262CC2B1E1B71A5754E /* Pods-rpgAltran.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -96,9 +123,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65318AF8207118EE007144EA /* Build configuration list for PBXNativeTarget "rpgAltran" */;
 			buildPhases = (
+				639DDCD057331B5EA2AB2BB7 /* [CP] Check Pods Manifest.lock */,
 				65318AE2207118EB007144EA /* Sources */,
 				65318AE3207118EB007144EA /* Frameworks */,
 				65318AE4207118EB007144EA /* Resources */,
+				8D18D09A6946DA92A5638AFD /* [CP] Embed Pods Frameworks */,
+				D01237835C2BF27B5C97FCFD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -155,6 +185,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		639DDCD057331B5EA2AB2BB7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-rpgAltran-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D18D09A6946DA92A5638AFD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-rpgAltran/Pods-rpgAltran-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-rpgAltran/Pods-rpgAltran-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D01237835C2BF27B5C97FCFD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-rpgAltran/Pods-rpgAltran-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		65318AE2207118EB007144EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -162,6 +246,7 @@
 			files = (
 				65318AFD20714D5B007144EA /* Gnome.swift in Sources */,
 				65318AEC207118EB007144EA /* ViewController.swift in Sources */,
+				65039CF8207540A900F22087 /* GnomeTableViewCell.swift in Sources */,
 				65318AFF2071559D007144EA /* Brastlewark.swift in Sources */,
 				65318AEA207118EB007144EA /* AppDelegate.swift in Sources */,
 				657A61CE2073F46F0064A50D /* ViewControllerUtils.swift in Sources */,
@@ -306,15 +391,13 @@
 		};
 		65318AF9207118EE007144EA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C5542E5FDB04C5AD962D5911 /* Pods-rpgAltran.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8HUR635N2P;
 				INFOPLIST_FILE = rpgAltran/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jgferrer.rpgAltran;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -324,15 +407,13 @@
 		};
 		65318AFA207118EE007144EA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 86CCF262CC2B1E1B71A5754E /* Pods-rpgAltran.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8HUR635N2P;
 				INFOPLIST_FILE = rpgAltran/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jgferrer.rpgAltran;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

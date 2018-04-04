@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -15,6 +16,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let URLGnomes = "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json"
     var brastlewark : NSArray = []
+    
+    
     
     @IBOutlet weak var gnomesTable: UITableView!
     
@@ -59,7 +62,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 if let gnomeArray = jsonObj!.value(forKey: "Brastlewark") as? NSArray {
                     self.brastlewark = gnomeArray
-                    sleep(4)
+                    //sleep(4)
                 }
                 
                 OperationQueue.main.addOperation({
@@ -75,19 +78,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return brastlewark.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "gnomeCell") as! GnomeTableViewCell
+        
+        cell.gnomeCell.layer.cornerRadius = cell.gnomeCell.frame.height / 2
         
         if let gnomeDict = brastlewark[indexPath.row] as? NSDictionary {
             if let name = gnomeDict.value(forKey: "name") {
-                cell.textLabel?.text = name as? String
+                cell.gnomeName.text = name as? String
             }
-        } else {
-            cell.textLabel?.text = " - NO NAME - "
+            if let thumbnail = gnomeDict.value(forKey: "thumbnail") {
+                let url = URL(string: (thumbnail as? String)!)
+                cell.gnomeImage.kf.setImage(with: url)
+                cell.gnomeImage.layer.cornerRadius = cell.gnomeImage.frame.height / 2
+            }
+            
         }
         
         return cell
     }
+    
+    
     
 }
 

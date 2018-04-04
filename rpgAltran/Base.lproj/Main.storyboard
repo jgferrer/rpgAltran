@@ -18,9 +18,56 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0cU-a0-Hx9">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0cU-a0-Hx9">
                                 <rect key="frame" x="0.0" y="75" width="414" height="661"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="gnomeCell" rowHeight="100" id="JCG-pB-NH9" customClass="GnomeTableViewCell" customModule="rpgAltran" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JCG-pB-NH9" id="fxD-iN-Mf2">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7tD-oi-6FV">
+                                                    <rect key="frame" x="10" y="5" width="394" height="89.666666666666671"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fv4-cT-rWS" userLabel="gnomeImage">
+                                                            <rect key="frame" x="4" y="4" width="82" height="81.666666666666671"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="82" id="wm2-O4-Xam"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Me5-6C-ygy" userLabel="gnomeName">
+                                                            <rect key="frame" x="94" y="8" width="296" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Fv4-cT-rWS" firstAttribute="leading" secondItem="7tD-oi-6FV" secondAttribute="leading" constant="4" id="S5h-cJ-iVu"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Fv4-cT-rWS" secondAttribute="bottom" constant="4" id="X5g-YA-hrd"/>
+                                                        <constraint firstItem="Fv4-cT-rWS" firstAttribute="top" secondItem="7tD-oi-6FV" secondAttribute="top" constant="4" id="tjS-Yu-0Nr"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="7tD-oi-6FV" secondAttribute="trailing" constant="10" id="NtH-xf-Z02"/>
+                                                <constraint firstAttribute="bottom" secondItem="7tD-oi-6FV" secondAttribute="bottom" constant="5" id="WlE-cC-DND"/>
+                                                <constraint firstItem="7tD-oi-6FV" firstAttribute="top" secondItem="fxD-iN-Mf2" secondAttribute="top" constant="5" id="hmC-RT-QZC"/>
+                                                <constraint firstItem="7tD-oi-6FV" firstAttribute="leading" secondItem="fxD-iN-Mf2" secondAttribute="leading" constant="10" id="wYk-sE-gNT"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="gnomeCell" destination="7tD-oi-6FV" id="aTA-xd-AXZ"/>
+                                            <outlet property="gnomeImage" destination="Fv4-cT-rWS" id="uDn-eZ-keL"/>
+                                            <outlet property="gnomeName" destination="Me5-6C-ygy" id="Cin-Ky-F1c"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="8TJ-Bx-wwr"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="tkw-o0-FYa"/>
