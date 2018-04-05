@@ -9,19 +9,20 @@
 /* Begin PBXBuildFile section */
 		088620F715425D531FEB1D2F /* Pods_rpgAltran.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CAA0D119482B455DE82CD19 /* Pods_rpgAltran.framework */; };
 		65039CF8207540A900F22087 /* GnomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65039CF7207540A900F22087 /* GnomeTableViewCell.swift */; };
+		651C6E8B20768838001AF565 /* GnomeDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C6E8A20768838001AF565 /* GnomeDetailController.swift */; };
 		65318AEA207118EB007144EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318AE9207118EB007144EA /* AppDelegate.swift */; };
 		65318AEC207118EB007144EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318AEB207118EB007144EA /* ViewController.swift */; };
 		65318AEF207118EB007144EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65318AED207118EB007144EA /* Main.storyboard */; };
 		65318AF1207118EE007144EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65318AF0207118EE007144EA /* Assets.xcassets */; };
 		65318AF4207118EE007144EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65318AF2207118EE007144EA /* LaunchScreen.storyboard */; };
 		65318AFD20714D5B007144EA /* Gnome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318AFC20714D5B007144EA /* Gnome.swift */; };
-		65318AFF2071559D007144EA /* Brastlewark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318AFE2071559D007144EA /* Brastlewark.swift */; };
 		657A61CE2073F46F0064A50D /* ViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657A61CD2073F46F0064A50D /* ViewControllerUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5CAA0D119482B455DE82CD19 /* Pods_rpgAltran.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_rpgAltran.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65039CF7207540A900F22087 /* GnomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnomeTableViewCell.swift; sourceTree = "<group>"; };
+		651C6E8A20768838001AF565 /* GnomeDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnomeDetailController.swift; sourceTree = "<group>"; };
 		65318AE6207118EB007144EA /* rpgAltran.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rpgAltran.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65318AE9207118EB007144EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65318AEB207118EB007144EA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -30,7 +31,6 @@
 		65318AF3207118EE007144EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65318AF5207118EE007144EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65318AFC20714D5B007144EA /* Gnome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gnome.swift; sourceTree = "<group>"; };
-		65318AFE2071559D007144EA /* Brastlewark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brastlewark.swift; sourceTree = "<group>"; };
 		657A61CD2073F46F0064A50D /* ViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUtils.swift; sourceTree = "<group>"; };
 		86CCF262CC2B1E1B71A5754E /* Pods-rpgAltran.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rpgAltran.release.xcconfig"; path = "Pods/Target Support Files/Pods-rpgAltran/Pods-rpgAltran.release.xcconfig"; sourceTree = "<group>"; };
 		C5542E5FDB04C5AD962D5911 /* Pods-rpgAltran.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rpgAltran.debug.xcconfig"; path = "Pods/Target Support Files/Pods-rpgAltran/Pods-rpgAltran.debug.xcconfig"; sourceTree = "<group>"; };
@@ -56,6 +56,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		651C6E89207687EB001AF565 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				65318AEB207118EB007144EA /* ViewController.swift */,
+				651C6E8A20768838001AF565 /* GnomeDetailController.swift */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
 		65318ADD207118EB007144EA = {
 			isa = PBXGroup;
 			children = (
@@ -77,10 +86,10 @@
 		65318AE8207118EB007144EA /* rpgAltran */ = {
 			isa = PBXGroup;
 			children = (
+				651C6E89207687EB001AF565 /* controller */,
 				657A61CC2073F4500064A50D /* utils */,
 				65318AFB20714D18007144EA /* model */,
 				65318AE9207118EB007144EA /* AppDelegate.swift */,
-				65318AEB207118EB007144EA /* ViewController.swift */,
 				65318AED207118EB007144EA /* Main.storyboard */,
 				65318AF0207118EE007144EA /* Assets.xcassets */,
 				65318AF2207118EE007144EA /* LaunchScreen.storyboard */,
@@ -94,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				65318AFC20714D5B007144EA /* Gnome.swift */,
-				65318AFE2071559D007144EA /* Brastlewark.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -245,9 +253,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				65318AFD20714D5B007144EA /* Gnome.swift in Sources */,
+				651C6E8B20768838001AF565 /* GnomeDetailController.swift in Sources */,
 				65318AEC207118EB007144EA /* ViewController.swift in Sources */,
 				65039CF8207540A900F22087 /* GnomeTableViewCell.swift in Sources */,
-				65318AFF2071559D007144EA /* Brastlewark.swift in Sources */,
 				65318AEA207118EB007144EA /* AppDelegate.swift in Sources */,
 				657A61CE2073F46F0064A50D /* ViewControllerUtils.swift in Sources */,
 			);
@@ -397,7 +405,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8HUR635N2P;
 				INFOPLIST_FILE = rpgAltran/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jgferrer.rpgAltran;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -413,7 +424,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8HUR635N2P;
 				INFOPLIST_FILE = rpgAltran/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.jgferrer.rpgAltran;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

@@ -16,8 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let URLGnomes = "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json"
     var brastlewark : NSArray = []
-    
-    
+    var gnomeSelected : NSDictionary?
     
     @IBOutlet weak var gnomesTable: UITableView!
     
@@ -96,13 +95,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.gnomeImage.kf.setImage(with: url)
                 cell.gnomeImage.layer.cornerRadius = cell.gnomeImage.frame.height / 2
             }
-            
         }
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let row = indexPath.row
+        if let gnomeDict = brastlewark[row] as? NSDictionary {
+            gnomeSelected = gnomeDict
+        }
+        return indexPath
+    }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is GnomeDetailController
+        {
+            let vc = segue.destination as? GnomeDetailController
+            vc?.gnomeDict = gnomeSelected
+        }
+    }
     
 }
 
