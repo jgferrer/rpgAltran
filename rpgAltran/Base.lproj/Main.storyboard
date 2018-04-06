@@ -38,10 +38,17 @@
                                                                 <constraint firstAttribute="width" constant="82" id="wm2-O4-Xam"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Me5-6C-ygy" userLabel="gnomeName">
-                                                            <rect key="frame" x="94" y="8" width="296" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GnomeName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Me5-6C-ygy" userLabel="gnomeName">
+                                                            <rect key="frame" x="94" y="17" width="296" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="gnomeAge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zdg-se-wm9">
+                                                            <rect key="frame" x="94" y="46" width="106" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -62,10 +69,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="gnomeAge" destination="Zdg-se-wm9" id="CPq-e6-ixb"/>
                                             <outlet property="gnomeCell" destination="7tD-oi-6FV" id="aTA-xd-AXZ"/>
                                             <outlet property="gnomeImage" destination="Fv4-cT-rWS" id="uDn-eZ-keL"/>
                                             <outlet property="gnomeName" destination="Me5-6C-ygy" id="Cin-Ky-F1c"/>
-                                            <segue destination="wuc-Pn-CFU" kind="show" identifier="showGnomeDetail" id="jC2-Ld-q6j"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -91,6 +98,7 @@
                     </view>
                     <connections>
                         <outlet property="gnomesTable" destination="0cU-a0-Hx9" id="3ci-o0-RzZ"/>
+                        <segue destination="wuc-Pn-CFU" kind="show" identifier="showGnomeDetail" id="YEq-sj-KvV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -109,16 +117,11 @@
                                 <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Title" id="pPZ-v6-Fg6">
-                                        <barButtonItem key="leftBarButtonItem" style="plain" id="CDV-lk-Lpz">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="v0P-UP-Th9">
-                                                <rect key="frame" x="20" y="7" width="92" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Back"/>
-                                                <connections>
-                                                    <action selector="goBack:" destination="wuc-Pn-CFU" eventType="touchUpInside" id="vbM-bt-eA2"/>
-                                                </connections>
-                                            </button>
+                                    <navigationItem title="Gnome Name" id="pPZ-v6-Fg6">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="CDV-lk-Lpz">
+                                            <connections>
+                                                <action selector="goBack:" destination="wuc-Pn-CFU" id="SLA-vN-5Vc"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -130,17 +133,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjY-3A-41R">
+                                <rect key="frame" x="218" y="83" width="177" height="175"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="UQ9-Wh-EkY"/>
                     </view>
                     <connections>
+                        <outlet property="gnomeImage" destination="vjY-3A-41R" id="tfK-XA-OJc"/>
                         <outlet property="gnomeNameLbl" destination="NZL-s6-HyP" id="6b5-Xs-nfd"/>
+                        <outlet property="gnomeNameTitle" destination="pPZ-v6-Fg6" id="naj-Xr-WpR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QAe-Qf-g3b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1069.5652173913045" y="142.66304347826087"/>
+            <point key="canvasLocation" x="992.75362318840587" y="132.88043478260872"/>
         </scene>
     </scenes>
 </document>

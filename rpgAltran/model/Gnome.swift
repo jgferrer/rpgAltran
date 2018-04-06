@@ -21,14 +21,26 @@ import Foundation
 import UIKit
 
 struct Gnome: Codable {
-    let id: Int
-    let name: String
-    let thumbnail: String
-    let age: Int
-    let weight: Double
-    let height: Double
-    let hair_color: String
-    let professions: [String]
-    let friends: [String]
+    var id: Int?
+    var name: String?
+    var thumbnail: String?
+    var age: Int?
+    var weight: Double?
+    var height: Double?
+    var hair_color: String?
+    var professions: [String]?
+    var friends: [String]?
     
+    init(with dictionary: NSDictionary?) {
+        guard let dictionary = dictionary else { return }
+        id = dictionary["id"] as? Int
+        name = dictionary["name"] as? String
+        thumbnail = dictionary["thumbnail"] as? String
+        age = dictionary["age"] as? Int
+        weight = dictionary["weight"] as? Double
+        height = dictionary["height"] as? Double
+        hair_color = dictionary["hair_color"] as? String
+        professions = dictionary["professions"] as? [String]
+        friends = dictionary["friends"] as? [String]
+    }
 }

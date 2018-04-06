@@ -13,6 +13,7 @@ class GnomeTableViewCell: UITableViewCell {
     @IBOutlet weak var gnomeCell: UIView!
     @IBOutlet weak var gnomeImage: UIImageView!
     @IBOutlet weak var gnomeName: UILabel!
+    @IBOutlet weak var gnomeAge: UILabel!
     
     
     override func awakeFromNib() {

@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let URLGnomes = "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json"
     var brastlewark : NSArray = []
-    var gnomeSelected : NSDictionary?
+    var gnomeSelected : Gnome?
     
     @IBOutlet weak var gnomesTable: UITableView!
     
@@ -86,43 +86,33 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.gnomeCell.layer.cornerRadius = cell.gnomeCell.frame.height / 2
         
-        if let gnomeDict = brastlewark[indexPath.row] as? NSDictionary {
-            if let name = gnomeDict.value(forKey: "name") {
-                cell.gnomeName.text = name as? String
-            }
-            if let thumbnail = gnomeDict.value(forKey: "thumbnail") {
-                let url = URL(string: (thumbnail as? String)!)
-                cell.gnomeImage.kf.setImage(with: url)
-                cell.gnomeImage.layer.cornerRadius = cell.gnomeImage.frame.height / 2
-            }
-        }
+        let curGnome = Gnome(with: brastlewark[indexPath.row] as? NSDictionary)
+        
+        cell.gnomeName.text = curGnome.name
+        cell.gnomeAge.text = "Age: \(curGnome.age!)"
+        let url = URL(string: curGnome.thumbnail!)
+        cell.gnomeImage.kf.setImage(with: url)
+        cell.gnomeImage.layer.cornerRadius = cell.gnomeImage.frame.height / 2
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let row = indexPath.row
-        if let gnomeDict = brastlewark[row] as? NSDictionary {
-            gnomeSelected = gnomeDict
-        }
-        return indexPath
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if let gnomeDict = brastlewark[indexPath.row] as? NSDictionary {
+            gnomeSelected = Gnome(with: gnomeDict)
+            performSegue(withIdentifier: "showGnomeDetail", sender: self)
+        }
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.destination is GnomeDetailController
+        if segue.identifier == "showGnomeDetail"
         {
             let vc = segue.destination as? GnomeDetailController
-            vc?.gnomeDict = gnomeSelected
+            vc?.gnome = gnomeSelected
         }
     }
     
 }
-
-
-

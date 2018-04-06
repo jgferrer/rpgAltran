@@ -12,21 +12,22 @@ import Kingfisher
 
 class GnomeDetailController: UIViewController {
     
-    var gnomeDict : NSDictionary?
+    var gnome : Gnome?
     @IBOutlet weak var gnomeNameLbl: UILabel!
+    @IBOutlet weak var gnomeImage: UIImageView!
+    @IBOutlet weak var gnomeNameTitle: UINavigationItem!
     
     override func viewDidLoad()
     {
-        if let name = self.gnomeDict?.value(forKey: "name") {
-            print(name)
-        }
-        
-        gnomeNameLbl.text = self.gnomeDict?.value(forKey: "name") as? String
-        
+        gnomeNameLbl.text = "Age: \(gnome!.age!)"
+        gnomeNameTitle.title = gnome?.name
+        let url = URL(string: (gnome?.thumbnail)!)
+        gnomeImage.kf.setImage(with: url)
+        gnomeImage.layer.cornerRadius = gnomeImage.frame.height / 2
     }
     
     
-    @IBAction func goBack(_ sender: Any) {
+    @IBAction func goBack(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
 }
