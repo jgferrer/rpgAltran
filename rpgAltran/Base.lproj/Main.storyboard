@@ -98,6 +98,7 @@
                     </view>
                     <connections>
                         <outlet property="gnomesTable" destination="0cU-a0-Hx9" id="3ci-o0-RzZ"/>
+                        <outlet property="searchBar" destination="KQl-Kf-13s" id="Z3v-tL-VTf"/>
                         <segue destination="wuc-Pn-CFU" kind="show" identifier="showGnomeDetail" id="YEq-sj-KvV"/>
                     </connections>
                 </viewController>
