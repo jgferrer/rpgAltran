@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class GnomeDetailController: UIViewController {
+class GnomeDetailController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var gnome : Gnome?
     
@@ -35,6 +35,19 @@ class GnomeDetailController: UIViewController {
         gnomeImage.layer.cornerRadius = gnomeImage.frame.height / 2
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.gnome?.friends?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendsCollectionViewCell", for: indexPath) as! FriendsCollectionViewCell
+        
+        let url = URL(string: (gnome?.thumbnail)!)
+        cell.friendImage.kf.setImage(with: url)
+        cell.friendImage.layer.cornerRadius = cell.friendImage.frame.height / 2
+        
+        return cell
+    }
     
     @IBAction func goBack(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)

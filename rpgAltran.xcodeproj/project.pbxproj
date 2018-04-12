@@ -17,6 +17,7 @@
 		65318AF4207118EE007144EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65318AF2207118EE007144EA /* LaunchScreen.storyboard */; };
 		65318AFD20714D5B007144EA /* Gnome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318AFC20714D5B007144EA /* Gnome.swift */; };
 		657A61CE2073F46F0064A50D /* ViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657A61CD2073F46F0064A50D /* ViewControllerUtils.swift */; };
+		65D1DCAD207FD2A40073E9B0 /* FriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D1DCAC207FD2A40073E9B0 /* FriendsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		65318AF5207118EE007144EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65318AFC20714D5B007144EA /* Gnome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gnome.swift; sourceTree = "<group>"; };
 		657A61CD2073F46F0064A50D /* ViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUtils.swift; sourceTree = "<group>"; };
+		65D1DCAC207FD2A40073E9B0 /* FriendsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionViewCell.swift; sourceTree = "<group>"; };
 		86CCF262CC2B1E1B71A5754E /* Pods-rpgAltran.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rpgAltran.release.xcconfig"; path = "Pods/Target Support Files/Pods-rpgAltran/Pods-rpgAltran.release.xcconfig"; sourceTree = "<group>"; };
 		C5542E5FDB04C5AD962D5911 /* Pods-rpgAltran.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rpgAltran.debug.xcconfig"; path = "Pods/Target Support Files/Pods-rpgAltran/Pods-rpgAltran.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +93,7 @@
 				65318AFB20714D18007144EA /* model */,
 				65318AE9207118EB007144EA /* AppDelegate.swift */,
 				65318AED207118EB007144EA /* Main.storyboard */,
+				65D1DCAC207FD2A40073E9B0 /* FriendsCollectionViewCell.swift */,
 				65318AF0207118EE007144EA /* Assets.xcassets */,
 				65318AF2207118EE007144EA /* LaunchScreen.storyboard */,
 				65318AF5207118EE007144EA /* Info.plist */,
@@ -254,6 +257,7 @@
 			files = (
 				65318AFD20714D5B007144EA /* Gnome.swift in Sources */,
 				651C6E8B20768838001AF565 /* GnomeDetailController.swift in Sources */,
+				65D1DCAD207FD2A40073E9B0 /* FriendsCollectionViewCell.swift in Sources */,
 				65318AEC207118EB007144EA /* ViewController.swift in Sources */,
 				65039CF8207540A900F22087 /* GnomeTableViewCell.swift in Sources */,
 				65318AEA207118EB007144EA /* AppDelegate.swift in Sources */,
