@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Kingfisher
+import CoreData
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
@@ -43,7 +44,38 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         ViewControllerUtils.shared.showActivityIndicator(uiView: self.view)
-        getJsonFromUrl();
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Gnomes")
+        
+        // Si tenemos datos de gnomos en Core Data los leeremos si no llamaremos a getJsonFromUrl
+        do {
+            let results = try context.fetch(fetchRequest) as? [NSManagedObject]
+            if results?.count != 0 {
+                let arrayGnomes = NSKeyedUnarchiver.unarchiveObject(with: results![0].value(forKey: "arrayData") as! Data)
+                self.brastlewark = arrayGnomes as! NSArray
+                self.brastlewarkFiltered = self.brastlewark
+                self.refreshControl.endRefreshing()
+                self.gnomesTable.reloadData()
+                ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
+                
+                let alert = UIAlertView()
+                alert.title = "Core Data"
+                alert.message = "Leyendo desde Core Data"
+                alert.addButton(withTitle: "Ok")
+                alert.show()
+            } else {
+                getJsonFromUrl()
+                let alert = UIAlertView()
+                alert.title = "Internet"
+                alert.message = "Leyendo desde internet"
+                alert.addButton(withTitle: "Ok")
+                alert.show()
+            }
+        } catch {
+            print("Fetch Failed: \(error)")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,12 +98,43 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if let gnomeArray = jsonObj!.value(forKey: "Brastlewark") as? NSArray {
                     self.brastlewark = gnomeArray
                     self.brastlewarkFiltered = self.brastlewark
-                    //sleep(4)
                 }
                 
                 OperationQueue.main.addOperation({
                     self.refreshControl.endRefreshing()
                     self.gnomesTable.reloadData()
+                    
+                    // ------------------------------------
+                    // Guardando / Actualizando en CoreData
+                    // ------------------------------------
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    let context = appDelegate.persistentContainer.viewContext
+                    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Gnomes")
+                    
+                    do {
+                        let results = try context.fetch(fetchRequest) as? [NSManagedObject]
+                        if results?.count != 0 {
+                            // Actualizamos el campo arrayData del item[0]
+                            let arrayData = NSKeyedArchiver.archivedData(withRootObject: self.brastlewark)
+                            results![0].setValue(arrayData, forKey: "arrayData")
+                        } else {
+                            // La primera vez hay que crear el item[0]
+                            let gnomes = NSEntityDescription.insertNewObject(forEntityName: "Gnomes", into: context) as NSManagedObject
+                            let arrayData = NSKeyedArchiver.archivedData(withRootObject: self.brastlewark)
+                            gnomes.setValue(arrayData, forKey: "arrayData")
+                        }
+                    } catch {
+                        print("Fetch Failed: \(error)")
+                    }
+                    
+                    do {
+                        try context.save()
+                    }
+                    catch {
+                        print("Saving Core Data Failed: \(error)")
+                    }
+                    //
+                    
                     ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
                 })
             }
@@ -79,7 +142,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return brastlewark.count
         return brastlewarkFiltered.count
     }
     
@@ -138,6 +200,5 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-    
     
 }

@@ -21,10 +21,10 @@ import Foundation
 import UIKit
 
 struct Gnome: Codable {
-    var id: Int?
+    var id: Int16?
     var name: String?
     var thumbnail: String?
-    var age: Int?
+    var age: Int16?
     var weight: Double?
     var height: Double?
     var hair_color: String?
@@ -33,10 +33,10 @@ struct Gnome: Codable {
     
     init(with dictionary: NSDictionary?) {
         guard let dictionary = dictionary else { return }
-        id = dictionary["id"] as? Int
+        id = dictionary["id"] as? Int16
         name = dictionary["name"] as? String
         thumbnail = dictionary["thumbnail"] as? String
-        age = dictionary["age"] as? Int
+        age = dictionary["age"] as? Int16
         weight = dictionary["weight"] as? Double
         height = dictionary["height"] as? Double
         hair_color = dictionary["hair_color"] as? String
