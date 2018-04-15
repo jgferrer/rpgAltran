@@ -59,19 +59,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.refreshControl.endRefreshing()
                 self.gnomesTable.reloadData()
                 ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
-                
+                /*
                 let alert = UIAlertView()
                 alert.title = "Core Data"
                 alert.message = "Leyendo desde Core Data"
                 alert.addButton(withTitle: "Ok")
                 alert.show()
+                */
             } else {
                 getJsonFromUrl()
+                /*
                 let alert = UIAlertView()
                 alert.title = "Internet"
                 alert.message = "Leyendo desde internet"
                 alert.addButton(withTitle: "Ok")
                 alert.show()
+                */
             }
         } catch {
             print("Fetch Failed: \(error)")

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Kingfisher
+import CoreData
 
 class GnomeDetailController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -33,6 +34,7 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         let url = URL(string: (gnome?.thumbnail)!)
         gnomeImage.kf.setImage(with: url)
         gnomeImage.layer.cornerRadius = gnomeImage.frame.height / 2
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -41,10 +43,37 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendsCollectionViewCell", for: indexPath) as! FriendsCollectionViewCell
-        
+
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Gnomes")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                let arrayGnomes = NSKeyedUnarchiver.unarchiveObject(with: data.value(forKey: "arrayData") as! Data) as! NSArray
+                
+                let friendName = gnome?.friends![indexPath.row]
+                
+                let predicateString = NSPredicate(format: "%K contains[cd] %@", "name", friendName!)
+                print("predicate \(predicateString)")
+                let filteredArray = arrayGnomes.filtered(using: predicateString)
+                
+                let friend = Gnome(with: filteredArray[0] as? NSDictionary)
+                let url = URL(string: (friend.thumbnail)!)
+                cell.friendImage.kf.setImage(with: url)
+                cell.friendImage.layer.cornerRadius = cell.friendImage.frame.height / 2
+                cell.friendName.text = friend.name
+            }
+            
+        } catch {
+            print("Failed")
+        }
+        /*
         let url = URL(string: (gnome?.thumbnail)!)
         cell.friendImage.kf.setImage(with: url)
         cell.friendImage.layer.cornerRadius = cell.friendImage.frame.height / 2
+         */
         
         return cell
     }
