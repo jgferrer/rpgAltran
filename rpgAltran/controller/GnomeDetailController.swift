@@ -21,6 +21,7 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var gnomeHeight: UILabel!
     @IBOutlet weak var gnomeImage: UIImageView!
     @IBOutlet weak var gnomeName: UILabel!
+    @IBOutlet weak var gnomeProfessions: UILabel!
     
     override func viewDidLoad()
     {
@@ -30,10 +31,17 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         gnomeWeight.text = "\(gnome!.weight!)"
         gnomeHeight.text = "\(gnome!.height!)"
         
-        
         let url = URL(string: (gnome?.thumbnail)!)
         gnomeImage.kf.setImage(with: url)
         gnomeImage.layer.cornerRadius = gnomeImage.frame.height / 2
+        
+        gnomeProfessions.text = ""
+        let listGnomeProfessions = (gnome?.professions)!.joined(separator: ", ")
+        guard listGnomeProfessions == "" else {
+            gnomeProfessions.text = listGnomeProfessions + "."
+            return
+        }
+        gnomeProfessions.sizeToFit()
         
     }
     
