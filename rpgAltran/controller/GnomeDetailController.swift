@@ -22,6 +22,7 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var gnomeImage: UIImageView!
     @IBOutlet weak var gnomeName: UILabel!
     @IBOutlet weak var gnomeProfessions: UILabel!
+    @IBOutlet weak var noFriendsImage: UIImageView!
     
     override func viewDidLoad()
     {
@@ -34,6 +35,8 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         let url = URL(string: (gnome?.thumbnail)!)
         gnomeImage.kf.setImage(with: url)
         gnomeImage.layer.cornerRadius = gnomeImage.frame.height / 2
+        
+        noFriendsImage.isHidden = (gnome?.friends?.count)! > 0
         
         gnomeProfessions.text = ""
         let listGnomeProfessions = (gnome?.professions)!.joined(separator: ", ")

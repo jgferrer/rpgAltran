@@ -257,6 +257,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nofriends" translatesAutoresizingMaskIntoConstraints="NO" id="MSG-cF-tFf">
+                                <rect key="frame" x="39" y="359" width="100" height="99"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="UQ9-Wh-EkY"/>
@@ -269,6 +273,7 @@
                         <outlet property="gnomeName" destination="Edh-gd-aZl" id="8DW-f3-GA9"/>
                         <outlet property="gnomeProfessions" destination="SEx-Ux-aev" id="ZP2-L1-GxJ"/>
                         <outlet property="gnomeWeight" destination="arW-q0-v1U" id="OUS-0Q-LmX"/>
+                        <outlet property="noFriendsImage" destination="MSG-cF-tFf" id="OrY-Zj-Qq1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QAe-Qf-g3b" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -276,4 +281,7 @@
             <point key="canvasLocation" x="992.75362318840587" y="132.88043478260872"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="nofriends" width="63" height="71"/>
+    </resources>
 </document>
