@@ -147,7 +147,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Edh-gd-aZl" userLabel="Name">
-                                <rect key="frame" x="19" y="87" width="375" height="31"/>
+                                <rect key="frame" x="19" y="87" width="327" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
@@ -276,12 +276,17 @@
                                 <rect key="frame" x="39" y="359" width="100" height="99"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="noFavourite" translatesAutoresizingMaskIntoConstraints="NO" id="AOq-iO-ozf" userLabel="Favourite">
+                                <rect key="frame" x="354" y="82" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="UQ9-Wh-EkY"/>
                     </view>
                     <connections>
                         <outlet property="gnomeAge" destination="NZL-s6-HyP" id="7BY-R6-hPo"/>
+                        <outlet property="gnomeFavourite" destination="AOq-iO-ozf" id="UmO-gn-VKo"/>
                         <outlet property="gnomeHairColor" destination="Sc8-XY-e9J" id="Pwe-wb-105"/>
                         <outlet property="gnomeHeight" destination="dz2-We-U6U" id="rzf-7w-GGM"/>
                         <outlet property="gnomeImage" destination="vjY-3A-41R" id="tfK-XA-OJc"/>
@@ -297,6 +302,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="noFavourite" width="170" height="170"/>
         <image name="nofriends" width="63" height="71"/>
     </resources>
 </document>

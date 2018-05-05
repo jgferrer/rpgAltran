@@ -203,6 +203,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         {
             let vc = segue.destination as? GnomeDetailController
             vc?.gnome = gnomeSelected
+            vc?.instanceOfVC = self
         }
     }
     
@@ -241,8 +242,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var searchPredicate : NSPredicate
         
         if searchText == "FAVOURITES" {
-            //FavouritesUtils.shared.addFavourite(name: "Tobus Quickwhistle")
-            
             let arrayFavourites = FavouritesUtils.shared.getFavourites()
             searchPredicate = NSPredicate(format: "SELF.name IN %@", arrayFavourites)
         } else {

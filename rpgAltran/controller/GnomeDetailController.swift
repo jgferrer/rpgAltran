@@ -14,6 +14,9 @@ import CoreData
 class GnomeDetailController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var gnome : Gnome?
+    var favourite : Bool = false
+    
+    var instanceOfVC:ViewController!
     
     @IBOutlet weak var gnomeAge: UILabel!
     @IBOutlet weak var gnomeHairColor: UILabel!
@@ -23,9 +26,12 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var gnomeName: UILabel!
     @IBOutlet weak var gnomeProfessions: UILabel!
     @IBOutlet weak var noFriendsImage: UIImageView!
+    @IBOutlet weak var gnomeFavourite: UIImageView!
     
     override func viewDidLoad()
     {
+        super.viewDidLoad()
+        
         gnomeName.text = gnome?.name
         gnomeAge.text = "\(gnome!.age!)"
         gnomeHairColor.text = "\(gnome?.hair_color ?? "")"
@@ -35,6 +41,21 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         let url = URL(string: (gnome?.thumbnail)!)
         gnomeImage.kf.setImage(with: url)
         gnomeImage.layer.cornerRadius = gnomeImage.frame.height / 2
+        
+        var tapGesture = UITapGestureRecognizer()
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(GnomeDetailController.singleTapping(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        gnomeFavourite.addGestureRecognizer(tapGesture)
+        gnomeFavourite.isUserInteractionEnabled = true
+        
+        if FavouritesUtils.shared.isFavourite(name: (gnome?.name)!){
+            gnomeFavourite.image = UIImage(named: "favourite")
+            self.favourite = true
+        } else {
+            gnomeFavourite.image = UIImage(named: "noFavourite")
+            self.favourite = false
+        }
         
         noFriendsImage.isHidden = (gnome?.friends?.count)! > 0
         
@@ -46,6 +67,21 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         }
         gnomeProfessions.sizeToFit()
         
+    }
+    
+    @objc func singleTapping(_ sender: UITapGestureRecognizer) {
+        if self.favourite {
+            gnomeFavourite.image = UIImage(named: "noFavourite")
+            let searchPredicate = NSPredicate(format: "SELF.name != %@", (gnome?.name)!)
+            let array = (instanceOfVC.brastlewarkFiltered as NSArray).filtered(using: searchPredicate)
+            instanceOfVC.brastlewarkFiltered = array as NSArray
+            FavouritesUtils.shared.removeFavourite(name: (gnome?.name!)!)
+        } else {
+            gnomeFavourite.image = UIImage(named: "favourite")
+            instanceOfVC.brastlewarkFiltered.adding(gnome!)
+            FavouritesUtils.shared.addFavourite(name: (gnome?.name!)!)
+        }
+        self.favourite = !self.favourite
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -84,6 +120,7 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     @IBAction func goBack(_ sender: UIBarButtonItem) {
+        instanceOfVC.gnomesTable.reloadData()
         self.dismiss(animated: true, completion: nil)
     }
 }
