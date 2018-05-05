@@ -10,26 +10,45 @@ import Foundation
 import UIKit
 import Kingfisher
 import CoreData
+import Firebase
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UITabBarDelegate {
 
     private let refreshControl = UIRefreshControl()
+    //var handle: AuthStateDidChangeListenerHandle?
     
     let URLGnomes = "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json"
     var brastlewark : NSArray = []
     var brastlewarkFiltered : NSArray = []
     var gnomeSelected : Gnome?
-    var searchActive : Bool = false
     
     @IBOutlet weak var gnomesTable: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tabBar: UITabBar!
+    @IBOutlet weak var tabBarAll: UITabBarItem!
+    @IBOutlet weak var tabBarFavourites: UITabBarItem!
     
+    /*
+    override func viewWillAppear(_ animated: Bool) {
+        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+            // ...
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Auth.auth().removeStateDidChangeListener(handle!)
+    }
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
         gnomesTable.delegate = self
         gnomesTable.dataSource = self
         searchBar.delegate = self
+        tabBar.delegate = self
+        
+        tabBar.selectedItem = tabBar.items?[0]
         
         // Configure Refresh Control
         refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
@@ -86,6 +105,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     @objc private func refreshData(_ sender: Any) {
+        tabBar.selectedItem = tabBar.items?[0]
         getJsonFromUrl()
     }
     
@@ -136,7 +156,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     catch {
                         print("Saving Core Data Failed: \(error)")
                     }
-                    //
+                    // ------------------------------------ //
                     
                     ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
                 })
@@ -189,19 +209,61 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         guard searchText != "" else {
-            self.brastlewarkFiltered = self.brastlewark
-            self.gnomesTable.reloadData()
+            allGnomes()
             return
         }
-        
-        let searchPredicate = NSPredicate(format: "SELF.name CONTAINS[c] %@", searchText)
-        let array = (self.brastlewark as NSArray).filtered(using: searchPredicate)
-        self.brastlewarkFiltered = array as NSArray
-        self.gnomesTable.reloadData()
+        filterGnomes(searchText: searchText)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
     
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.tag == 0 {
+            searchBar.enable()
+            allGnomes()
+        } else {
+            searchBar.disable()
+            filterGnomes(searchText: "FAVOURITES")
+        }
+    }
+    
+    private func allGnomes() {
+        self.searchBar.text = ""
+        self.brastlewarkFiltered = self.brastlewark
+        self.gnomesTable.reloadData()
+    }
+    
+    private func filterGnomes(searchText: String) {
+        
+        var searchPredicate : NSPredicate
+        
+        if searchText == "FAVOURITES" {
+            //FavouritesUtils.shared.addFavourite(name: "Tobus Quickwhistle")
+            
+            let arrayFavourites = FavouritesUtils.shared.getFavourites()
+            searchPredicate = NSPredicate(format: "SELF.name IN %@", arrayFavourites)
+        } else {
+            searchPredicate = NSPredicate(format: "SELF.name CONTAINS[c] %@", searchText)
+        }
+        
+        let array = (self.brastlewark as NSArray).filtered(using: searchPredicate)
+        self.brastlewarkFiltered = array as NSArray
+        self.gnomesTable.reloadData()
+    }
+}
+
+extension UISearchBar {
+    func enable() {
+        isUserInteractionEnabled = true
+        alpha = 1.0
+    }
+    
+    func disable() {
+        isUserInteractionEnabled = false
+        alpha = 0.5
+        text = ""
+    }
 }

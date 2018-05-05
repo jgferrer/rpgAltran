@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Favourites" representedClassName="Favourites" syncable="YES" codeGenerationType="class">
+        <attribute name="arrayNames" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
     <entity name="Gnomes" representedClassName="Gnomes" syncable="YES" codeGenerationType="class">
         <attribute name="arrayData" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
     <elements>
         <element name="Gnomes" positionX="-54" positionY="63" width="128" height="60"/>
+        <element name="Favourites" positionX="-54" positionY="72" width="128" height="60"/>
     </elements>
 </model>

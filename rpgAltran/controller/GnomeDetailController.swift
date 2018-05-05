@@ -65,9 +65,8 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
                 let arrayGnomes = NSKeyedUnarchiver.unarchiveObject(with: data.value(forKey: "arrayData") as! Data) as! NSArray
                 
                 let friendName = gnome?.friends![indexPath.row]
-                
+
                 let predicateString = NSPredicate(format: "%K contains[cd] %@", "name", friendName!)
-                print("predicate \(predicateString)")
                 let filteredArray = arrayGnomes.filtered(using: predicateString)
                 
                 let friend = Gnome(with: filteredArray[0] as? NSDictionary)
@@ -80,11 +79,6 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         } catch {
             print("Failed")
         }
-        /*
-        let url = URL(string: (gnome?.thumbnail)!)
-        cell.friendImage.kf.setImage(with: url)
-        cell.friendImage.layer.cornerRadius = cell.friendImage.frame.height / 2
-         */
         
         return cell
     }
