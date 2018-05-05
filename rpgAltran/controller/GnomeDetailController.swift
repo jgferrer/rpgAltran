@@ -49,7 +49,7 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         gnomeFavourite.addGestureRecognizer(tapGesture)
         gnomeFavourite.isUserInteractionEnabled = true
         
-        if FavouritesUtils.shared.isFavourite(name: (gnome?.name)!){
+        if FavouritesUtils.shared.isFavourite(id: (gnome?.id)!){
             gnomeFavourite.image = UIImage(named: "favourite")
             self.favourite = true
         } else {
@@ -72,14 +72,14 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
     @objc func singleTapping(_ sender: UITapGestureRecognizer) {
         if self.favourite {
             gnomeFavourite.image = UIImage(named: "noFavourite")
-            let searchPredicate = NSPredicate(format: "SELF.name != %@", (gnome?.name)!)
+            let searchPredicate = NSPredicate(format: "SELF.id != %i", (gnome?.id)!)
             let array = (instanceOfVC.brastlewarkFiltered as NSArray).filtered(using: searchPredicate)
             instanceOfVC.brastlewarkFiltered = array as NSArray
-            FavouritesUtils.shared.removeFavourite(name: (gnome?.name!)!)
+            FavouritesUtils.shared.removeFavourite(id: (gnome?.id)!)
         } else {
             gnomeFavourite.image = UIImage(named: "favourite")
             instanceOfVC.brastlewarkFiltered.adding(gnome!)
-            FavouritesUtils.shared.addFavourite(name: (gnome?.name!)!)
+            FavouritesUtils.shared.addFavourite(id: (gnome?.id)!)
         }
         self.favourite = !self.favourite
     }

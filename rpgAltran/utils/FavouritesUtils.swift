@@ -21,15 +21,15 @@ class FavouritesUtils {
     
     
     // Añade el nombre del Gnomo a los favoritos
-    open func addFavourite(name: String) {
-        editFavourites(name: name, action: "ADD")
+    open func addFavourite(id: Int16) {
+        editFavourites(id: id, action: "ADD")
     }
     
-    open func removeFavourite(name: String) {
-        editFavourites(name: name, action: "DELETE")
+    open func removeFavourite(id: Int16) {
+        editFavourites(id: id, action: "DELETE")
     }
     
-    func editFavourites(name: String, action: String) {
+    func editFavourites(id: Int16, action: String) {
         // --------------------------------------------------
         // Guardando / Actualizando en CoreData los Favoritos
         // --------------------------------------------------
@@ -41,19 +41,19 @@ class FavouritesUtils {
             let results = try context.fetch(fetchRequest) as? [NSManagedObject]
             if results?.count != 0 {
                 // Actualizamos el campo arrayNames del item[0]
-                var arrayFavourites = NSKeyedUnarchiver.unarchiveObject(with: results![0].value(forKey: "arrayNames") as! Data) as! [String]
+                var arrayFavourites = NSKeyedUnarchiver.unarchiveObject(with: results![0].value(forKey: "arrayFavourites") as! Data) as! [Int16]
                 if action == "ADD" {
-                    arrayFavourites.append(name)
+                    arrayFavourites.append(id)
                 } else if action == "DELETE" {
-                    arrayFavourites = arrayFavourites.filter{$0 != name}
+                    arrayFavourites = arrayFavourites.filter{$0 != id}
                 }
                 let arrayData = NSKeyedArchiver.archivedData(withRootObject: arrayFavourites)
-                results![0].setValue(arrayData, forKey: "arrayNames")
+                results![0].setValue(arrayData, forKey: "arrayFavourites")
             } else {
                 // La primera vez hay que crear el item[0]
                 let gnomes = NSEntityDescription.insertNewObject(forEntityName: "Favourites", into: context) as NSManagedObject
-                let arrayData = NSKeyedArchiver.archivedData(withRootObject: [name])
-                gnomes.setValue(arrayData, forKey: "arrayNames")
+                let arrayData = NSKeyedArchiver.archivedData(withRootObject: [id])
+                gnomes.setValue(arrayData, forKey: "arrayFavourites")
             }
         } catch {
             print("Fetch Failed: \(error)")
@@ -70,17 +70,17 @@ class FavouritesUtils {
     // ---------------------------------------------------------
     // Devuelve un array con los nombres de los Gnomos Favoritos
     // ---------------------------------------------------------
-    open func getFavourites() -> [String] {
+    open func getFavourites() -> [Int16] {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favourites")
-        var arrayFavourites : [String] = []
+        var arrayFavourites : [Int16] = []
         
         // Si tenemos datos de Favoritos en Core Data los leeremos si no devolveremos array vacío
         do {
             let results = try context.fetch(fetchRequest) as? [NSManagedObject]
             if results?.count != 0 {
-                arrayFavourites = NSKeyedUnarchiver.unarchiveObject(with: results![0].value(forKey: "arrayNames") as! Data) as! [String]
+                arrayFavourites = NSKeyedUnarchiver.unarchiveObject(with: results![0].value(forKey: "arrayFavourites") as! Data) as! [Int16]
             }
         } catch {
             print("Fetch Failed: \(error)")
@@ -89,9 +89,9 @@ class FavouritesUtils {
     }
     
     // Devuelve True si tenemos el Gnomo en favoritos y False si no lo tenemos
-    open func isFavourite(name: String) -> Bool {
+    open func isFavourite(id: Int16) -> Bool {
         let arrayFavourites = getFavourites()
-        return arrayFavourites.contains(name)
+        return arrayFavourites.contains(id)
     }
     
 }

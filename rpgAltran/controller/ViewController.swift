@@ -243,7 +243,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if searchText == "FAVOURITES" {
             let arrayFavourites = FavouritesUtils.shared.getFavourites()
-            searchPredicate = NSPredicate(format: "SELF.name IN %@", arrayFavourites)
+            searchPredicate = NSPredicate(format: "SELF.id IN %@", arrayFavourites)
         } else {
             searchPredicate = NSPredicate(format: "SELF.name CONTAINS[c] %@", searchText)
         }
