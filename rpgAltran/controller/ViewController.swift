@@ -27,6 +27,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var tabBarAll: UITabBarItem!
     @IBOutlet weak var tabBarFavourites: UITabBarItem!
+    @IBOutlet weak var blurEffect: UIVisualEffectView!
     
     /*
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +50,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tabBar.delegate = self
         
         tabBar.selectedItem = tabBar.items?[0]
+        searchBar.placeholder = "Name"
         
         // Configure Refresh Control
         refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
@@ -78,22 +80,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.refreshControl.endRefreshing()
                 self.gnomesTable.reloadData()
                 ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
-                /*
-                let alert = UIAlertView()
-                alert.title = "Core Data"
-                alert.message = "Leyendo desde Core Data"
-                alert.addButton(withTitle: "Ok")
-                alert.show()
-                */
             } else {
                 getJsonFromUrl()
-                /*
-                let alert = UIAlertView()
-                alert.title = "Internet"
-                alert.message = "Leyendo desde internet"
-                alert.addButton(withTitle: "Ok")
-                alert.show()
-                */
             }
         } catch {
             print("Fetch Failed: \(error)")
@@ -157,7 +145,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         print("Saving Core Data Failed: \(error)")
                     }
                     // ------------------------------------ //
-                    
                     ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
                 })
             }
@@ -199,10 +186,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.identifier == "showGnomeDetail"
-        {
+        if segue.identifier == "showGnomeDetail" {
             let vc = segue.destination as? GnomeDetailController
             vc?.gnome = gnomeSelected
+            vc?.instanceOfVC = self
+        } else if segue.identifier == "showAdvancedSearch" {
+            let vc = segue.destination as? AdvancedSearchController
+            vc?.professions = getDifferentProfessions()
             vc?.instanceOfVC = self
         }
     }
@@ -252,6 +242,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.brastlewarkFiltered = array as NSArray
         self.gnomesTable.reloadData()
     }
+    
+    
+    func getDifferentProfessions() -> [String] {
+        let allProfessions = brastlewark.value(forKey: "professions") as! NSArray
+        var differentProfessions : [String] = []
+        for professions in allProfessions {
+            for profession in professions as! NSArray {
+                differentProfessions.append((profession as! String).trimmingCharacters(in: .whitespacesAndNewlines))
+            }
+        }
+        
+        //print(Set<String>(differentProfessions))
+        let professions = [String](Set<String>(differentProfessions))
+        
+        return professions
+    }
+    
+    @IBAction func showAdvancedSearch(_ sender: Any) {
+        searchBar.resignFirstResponder()
+        self.blurEffect.isHidden = false
+        performSegue(withIdentifier: "showAdvancedSearch", sender: self)
+    }
+    
+    
 }
 
 extension UISearchBar {
