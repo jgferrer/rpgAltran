@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //var handle: AuthStateDidChangeListenerHandle?
     
     let URLGnomes = "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json"
+    //let URLGnomes = "https://jgferrer.synology.me:1326/json"
     var brastlewark : NSArray = []
     var brastlewarkFiltered : NSArray = []
     var gnomeSelected : Gnome?
@@ -223,6 +224,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     private func allGnomes() {
         self.searchBar.text = ""
+        gnomesTable.setContentOffset(.zero, animated: false)
         self.brastlewarkFiltered = self.brastlewark
         self.gnomesTable.reloadData()
     }
@@ -254,7 +256,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         //print(Set<String>(differentProfessions))
-        let professions = [String](Set<String>(differentProfessions))
+        let professions = [String](Set<String>(differentProfessions)).sorted{ $0 < $1 }
         
         return professions
     }

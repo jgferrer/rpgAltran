@@ -30,7 +30,6 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidLoad()
     {
-        super.viewDidLoad()
         
         gnomeName.text = gnome?.name
         gnomeAge.text = "\(gnome!.age!)"
