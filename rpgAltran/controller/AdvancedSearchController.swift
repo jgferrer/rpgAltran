@@ -16,7 +16,6 @@ class AdvancedSearchController: UIViewController, UIPickerViewDelegate, UIPicker
     var professionSelected : String = ""
     
     @IBOutlet weak var lblSearch: UILabel!
-    @IBOutlet weak var btnDismiss: UIButton!
     @IBOutlet weak var professionSelector: UIPickerView!
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -28,8 +27,12 @@ class AdvancedSearchController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        self.professionSelected = professions[row]
         return professions[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.professionSelected = professions[row]
+        print(professionSelected)
     }
     
     override func viewDidLoad()
@@ -47,7 +50,7 @@ class AdvancedSearchController: UIViewController, UIPickerViewDelegate, UIPicker
         
     }
     
-    @IBAction func dismiss(_ sender: Any) {
+    @IBAction func applyFilter(_ sender: Any) {
         let searchPredicate = NSPredicate(format: "SELF.professions CONTAINS[c] %@", professionSelected)
         let array = (instanceOfVC.brastlewarkFiltered as NSArray).filtered(using: searchPredicate)
         instanceOfVC.brastlewarkFiltered = array as NSArray
@@ -55,4 +58,13 @@ class AdvancedSearchController: UIViewController, UIPickerViewDelegate, UIPicker
         instanceOfVC.blurEffect.isHidden = true
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func clearFilter(_ sender: Any) {
+        instanceOfVC.brastlewarkFiltered = instanceOfVC.brastlewark
+        instanceOfVC.gnomesTable.reloadData()
+        instanceOfVC.blurEffect.isHidden = true
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
 }

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Kingfisher
 import CoreData
+import AudioToolbox
 
 class GnomeDetailController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -81,6 +82,8 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
             FavouritesUtils.shared.addFavourite(id: (gnome?.id)!)
         }
         self.favourite = !self.favourite
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
