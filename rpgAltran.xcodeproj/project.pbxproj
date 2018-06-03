@@ -19,6 +19,8 @@
 		65318AF4207118EE007144EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65318AF2207118EE007144EA /* LaunchScreen.storyboard */; };
 		65318AFD20714D5B007144EA /* Gnome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318AFC20714D5B007144EA /* Gnome.swift */; };
 		656586622093967B00E89622 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 656586612093967B00E89622 /* GoogleService-Info.plist */; };
+		6566D76820C4471400D7AF5A /* GnomeCommentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566D76720C4471400D7AF5A /* GnomeCommentsController.swift */; };
+		6566D76A20C4510A00D7AF5A /* GnomeCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6566D76920C4510A00D7AF5A /* GnomeCommentTableViewCell.swift */; };
 		657A61CE2073F46F0064A50D /* ViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657A61CD2073F46F0064A50D /* ViewControllerUtils.swift */; };
 		6583F90D20820FB6008D9300 /* rpgAltran.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6583F90B20820FB5008D9300 /* rpgAltran.xcdatamodeld */; };
 		659B204320C1BA5600EAEABD /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659B204220C1BA5600EAEABD /* Comment.swift */; };
@@ -40,6 +42,8 @@
 		65318AF5207118EE007144EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65318AFC20714D5B007144EA /* Gnome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gnome.swift; sourceTree = "<group>"; };
 		656586612093967B00E89622 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6566D76720C4471400D7AF5A /* GnomeCommentsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnomeCommentsController.swift; sourceTree = "<group>"; };
+		6566D76920C4510A00D7AF5A /* GnomeCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GnomeCommentTableViewCell.swift; sourceTree = "<group>"; };
 		657A61CD2073F46F0064A50D /* ViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUtils.swift; sourceTree = "<group>"; };
 		6583F90C20820FB6008D9300 /* rpgAltran.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = rpgAltran.xcdatamodel; sourceTree = "<group>"; };
 		659B204220C1BA5600EAEABD /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -72,8 +76,9 @@
 			isa = PBXGroup;
 			children = (
 				65318AEB207118EB007144EA /* ViewController.swift */,
-				651C6E8A20768838001AF565 /* GnomeDetailController.swift */,
 				651A158D20A20A5900261D5B /* AdvancedSearchController.swift */,
+				651C6E8A20768838001AF565 /* GnomeDetailController.swift */,
+				6566D76720C4471400D7AF5A /* GnomeCommentsController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 				65318AF2207118EE007144EA /* LaunchScreen.storyboard */,
 				65318AF5207118EE007144EA /* Info.plist */,
 				65039CF7207540A900F22087 /* GnomeTableViewCell.swift */,
+				6566D76920C4510A00D7AF5A /* GnomeCommentTableViewCell.swift */,
 				656586612093967B00E89622 /* GoogleService-Info.plist */,
 			);
 			path = rpgAltran;
@@ -154,7 +160,6 @@
 				65318AE3207118EB007144EA /* Frameworks */,
 				65318AE4207118EB007144EA /* Resources */,
 				8D18D09A6946DA92A5638AFD /* [CP] Embed Pods Frameworks */,
-				D01237835C2BF27B5C97FCFD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -255,21 +260,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-rpgAltran/Pods-rpgAltran-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D01237835C2BF27B5C97FCFD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-rpgAltran/Pods-rpgAltran-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -277,10 +267,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6566D76820C4471400D7AF5A /* GnomeCommentsController.swift in Sources */,
 				652DF86D209DE55600D7E315 /* FavouritesUtils.swift in Sources */,
 				651A158E20A20A5900261D5B /* AdvancedSearchController.swift in Sources */,
 				65318AFD20714D5B007144EA /* Gnome.swift in Sources */,
 				6583F90D20820FB6008D9300 /* rpgAltran.xcdatamodeld in Sources */,
+				6566D76A20C4510A00D7AF5A /* GnomeCommentTableViewCell.swift in Sources */,
 				651C6E8B20768838001AF565 /* GnomeDetailController.swift in Sources */,
 				65D1DCAD207FD2A40073E9B0 /* FriendsCollectionViewCell.swift in Sources */,
 				65318AEC207118EB007144EA /* ViewController.swift in Sources */,
@@ -435,6 +427,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8HUR635N2P;
 				INFOPLIST_FILE = rpgAltran/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -442,7 +435,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jgferrer.rpgAltran;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -454,6 +447,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8HUR635N2P;
 				INFOPLIST_FILE = rpgAltran/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -461,7 +455,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jgferrer.rpgAltran;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

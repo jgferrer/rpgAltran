@@ -17,8 +17,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private let refreshControl = UIRefreshControl()
     //var handle: AuthStateDidChangeListenerHandle?
     
-    let URLGnomes = "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json"
-    //let URLGnomes = "https://jgferrer.synology.me:1326/json"
+    //let URLGnomes = "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json"
+    let URLGnomes = "https://jgferrer.synology.me:1326/json"
     var brastlewark : NSArray = []
     var brastlewarkFiltered : NSArray = []
     var gnomeSelected : Gnome?

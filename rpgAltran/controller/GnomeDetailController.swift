@@ -167,7 +167,15 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item.tag == 0 {
-            item.badgeValue = "\((self.gnomeCount?.count)!)"
+            performSegue(withIdentifier: "showGnomeComments", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "showGnomeComments" {
+            let vc = segue.destination as? GnomeCommentsController
+            vc?.gnome = gnome
         }
     }
     
