@@ -12,10 +12,11 @@ import Kingfisher
 import CoreData
 import AudioToolbox
 
-class GnomeDetailController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class GnomeDetailController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITabBarDelegate {
     
-    var gnome : Gnome?
-    var favourite : Bool = false
+    var gnome: Gnome?
+    var favourite: Bool = false
+    var gnomeCount: GnomeCount?
     
     var instanceOfVC:ViewController!
     
@@ -28,9 +29,46 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var gnomeProfessions: UILabel!
     @IBOutlet weak var noFriendsImage: UIImageView!
     @IBOutlet weak var gnomeFavourite: UIImageView!
+    @IBOutlet weak var gnomeCommentsBar: UITabBar!
     
     override func viewDidLoad()
     {
+        gnomeCommentsBar.delegate = self
+        gnomeCommentsBar.selectedItem = gnomeCommentsBar.items?[0]
+        
+        // OBTENER NÚMERO DE COMENTARIOS DEL GNOMO SELECCIONADO
+        getCommentsCount(for: (gnome?.id)!) { (result) in
+            switch result {
+            case .success(let result):
+                self.gnomeCount = result
+                if (self.gnomeCount?.count)! > 0 {
+                    if let tabItems = self.gnomeCommentsBar.items as NSArray?
+                    {
+                        let tabItem = tabItems[0] as! UITabBarItem
+                        tabItem.badgeValue = "\((self.gnomeCount?.count)!)"
+                    }
+                }
+            case.failure(let error):
+                fatalError("error: \(error.localizedDescription)")
+            }
+        }
+        
+        /*
+        getComments(for: (gnome?.id)!) { (result) in
+            switch result {
+            case .success(let comments):
+                self.gnomeComments = comments
+                print(comments)
+                if let tabItems = self.gnomeCommentsBar.items as NSArray?
+                {
+                    let tabItem = tabItems[0] as! UITabBarItem
+                    tabItem.badgeValue = "\(comments.count)"
+                }
+            case .failure(let error):
+                fatalError("error: \(error.localizedDescription)")
+            }
+        }
+        */
         
         gnomeName.text = gnome?.name
         gnomeAge.text = "\(gnome!.age!)"
@@ -60,7 +98,13 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         noFriendsImage.isHidden = (gnome?.friends?.count)! > 0
         
         gnomeProfessions.text = ""
-        let listGnomeProfessions = (gnome?.professions)!.joined(separator: ", ")
+        
+        var arrProfessions : [String] = []
+        for profession in (gnome?.professions)! {
+            arrProfessions.append(profession.trimmingCharacters(in: .whitespacesAndNewlines))
+        }
+        
+        let listGnomeProfessions = arrProfessions.sorted{ $0 < $1 }.joined(separator: ", ")
         guard listGnomeProfessions == "" else {
             gnomeProfessions.text = listGnomeProfessions + "."
             return
@@ -119,6 +163,12 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         }
         
         return cell
+    }
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.tag == 0 {
+            item.badgeValue = "\((self.gnomeCount?.count)!)"
+        }
     }
     
     @IBAction func goBack(_ sender: UIBarButtonItem) {

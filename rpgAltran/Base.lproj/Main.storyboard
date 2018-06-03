@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="75" width="375" height="543"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="gnomeCell" rowHeight="100" id="JCG-pB-NH9" customClass="GnomeTableViewCell" customModule="rpgAltran" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="gnomeCell" rowHeight="100" id="JCG-pB-NH9" customClass="GnomeTableViewCell" customModule="rpgAltran" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JCG-pB-NH9" id="fxD-iN-Mf2">
@@ -314,6 +314,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJz-wk-Biw">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem title="Comments" image="chat" selectedImage="chat" id="9zy-LN-MB9"/>
+                                </items>
+                            </tabBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -370,6 +378,7 @@
                     </view>
                     <connections>
                         <outlet property="gnomeAge" destination="NZL-s6-HyP" id="7BY-R6-hPo"/>
+                        <outlet property="gnomeCommentsBar" destination="TJz-wk-Biw" id="Wzy-EC-4U5"/>
                         <outlet property="gnomeFavourite" destination="AOq-iO-ozf" id="UmO-gn-VKo"/>
                         <outlet property="gnomeHairColor" destination="Sc8-XY-e9J" id="Pwe-wb-105"/>
                         <outlet property="gnomeHeight" destination="dz2-We-U6U" id="rzf-7w-GGM"/>
@@ -471,6 +480,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chat" width="30" height="30"/>
         <image name="noFavourite" width="256" height="256"/>
         <image name="nofriends" width="95" height="107"/>
     </resources>

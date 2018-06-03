@@ -11,9 +11,9 @@ import UIKit
 
 class AdvancedSearchController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var professions : [String] = []
-    var instanceOfVC : ViewController!
-    var professionSelected : String = ""
+    var professions: [String] = []
+    var instanceOfVC: ViewController!
+    var professionSelected: String = ""
     
     @IBOutlet weak var lblSearch: UILabel!
     @IBOutlet weak var professionSelector: UIPickerView!
