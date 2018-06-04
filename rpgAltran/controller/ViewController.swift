@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import Kingfisher
 import CoreData
-import Firebase
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UITabBarDelegate {
 
@@ -18,7 +17,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //var handle: AuthStateDidChangeListenerHandle?
     
     //let URLGnomes = "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json"
-    let URLGnomes = "https://jgferrer.synology.me:1326/json"
+    let URLGnomes = "https://jgferrer.synology.me:1326/api/json"
     var brastlewark : NSArray = []
     var brastlewarkFiltered : NSArray = []
     var gnomeSelected : Gnome?
@@ -30,18 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tabBarFavourites: UITabBarItem!
     @IBOutlet weak var blurEffect: UIVisualEffectView!
     
-    /*
-    override func viewWillAppear(_ animated: Bool) {
-        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            // ...
-        }
-    }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        Auth.auth().removeStateDidChangeListener(handle!)
-    }
-    */
     override func viewDidLoad() {
         super.viewDidLoad()
         
