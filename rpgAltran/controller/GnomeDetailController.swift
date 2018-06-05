@@ -36,6 +36,12 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         gnomeCommentsBar.delegate = self
         gnomeCommentsBar.selectedItem = gnomeCommentsBar.items?[0]
         
+        if let tabItems = self.gnomeCommentsBar.items as NSArray?
+        {
+            let tabItem = tabItems[0] as! UITabBarItem
+            tabItem.isEnabled = false
+        }
+        
         // OBTENER NÚMERO DE COMENTARIOS DEL GNOMO SELECCIONADO
         getCommentsCount(for: (gnome?.id)!) { (result) in
             switch result {
@@ -45,11 +51,12 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
                     if let tabItems = self.gnomeCommentsBar.items as NSArray?
                     {
                         let tabItem = tabItems[0] as! UITabBarItem
+                        tabItem.isEnabled = true
                         tabItem.badgeValue = "\((self.gnomeCount?.count)!)"
                     }
                 }
             case.failure(let error):
-                fatalError("error: \(error.localizedDescription)")
+                print("error: \(error.localizedDescription)")
             }
         }
         

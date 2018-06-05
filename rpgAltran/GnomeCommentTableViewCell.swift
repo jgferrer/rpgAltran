@@ -12,6 +12,7 @@ class GnomeCommentTableViewCell: UITableViewCell {
     
     @IBOutlet weak var gnomeComment: UIView!
     @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var dateCreated: UILabel!
     @IBOutlet weak var comment: UITextView!
     
     

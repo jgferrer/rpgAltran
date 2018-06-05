@@ -8,12 +8,17 @@
 
 import Foundation
 
+enum DateError: String, Error {
+    case invalidDate
+}
+
 struct Comment: Codable {
     let id: Int
     let title: String
     let comment: String
     let userId: String
     let gnomeId: Int16
+    let dateCreated: Date
 }
 
 enum Result<Value> {
@@ -54,6 +59,25 @@ func getComments(for gnomeId: Int16, completion: ((Result<[Comment]>) -> Void)?)
                 // Create an instance of JSONDecoder to decode the JSON data to our
                 // Codable struct
                 let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
+                    let container = try decoder.singleValueContainer()
+                    let dateStr = try container.decode(String.self)
+                    
+                    let formatter = DateFormatter()
+                    formatter.calendar = Calendar(identifier: .iso8601)
+                    formatter.locale = Locale(identifier: "en_US_POSIX")
+                    formatter.timeZone = TimeZone(secondsFromGMT: 0)
+                    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+                    if let date = formatter.date(from: dateStr) {
+                        return date
+                    }
+                    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXXXX"
+                    if let date = formatter.date(from: dateStr) {
+                        return date
+                    }
+                    throw DateError.invalidDate
+                })
+                
                 
                 do {
                     // We would use Comment.self for JSON representing a single Comment

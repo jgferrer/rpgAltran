@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Kingfisher
 import CoreData
+import RNNotificationView
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UITabBarDelegate {
 
@@ -17,7 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //var handle: AuthStateDidChangeListenerHandle?
     
     //let URLGnomes = "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json"
-    let URLGnomes = "https://jgferrer.synology.me:1326/api/json"
+    let URLGnomes = "https://jgferrer.synology.me:1326/api/jsono"
     var brastlewark : NSArray = []
     var brastlewarkFiltered : NSArray = []
     var gnomeSelected : Gnome?
@@ -135,6 +136,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     // ------------------------------------ //
                     ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
+                })
+            } else {
+                OperationQueue.main.addOperation({
+                    self.refreshControl.endRefreshing()
+                    
+                    let notification = RNNotificationView()
+                    notification.titleFont = UIFont.boldSystemFont(ofSize: 16)
+                    notification.subtitleFont = UIFont.systemFont(ofSize: 14)
+                    notification.show(withImage: UIImage(named: "error"),
+                                            title: "Error",
+                                            message: "Unable to retrieve gnome data",
+                                            duration: 3,
+                                            iconSize: CGSize(width: 32, height: 32), // Optional setup
+                        onTap: {
+                            print("Did tap notification")
+                    }
+                    )
                 })
             }
         }).resume()
@@ -270,3 +288,4 @@ extension UISearchBar {
         text = ""
     }
 }
+
