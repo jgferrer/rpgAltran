@@ -47,35 +47,18 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
             switch result {
             case .success(let result):
                 self.gnomeCount = result
-                if (self.gnomeCount?.count)! > 0 {
                     if let tabItems = self.gnomeCommentsBar.items as NSArray?
                     {
                         let tabItem = tabItems[0] as! UITabBarItem
                         tabItem.isEnabled = true
-                        tabItem.badgeValue = "\((self.gnomeCount?.count)!)"
+                        if (self.gnomeCount?.count)! > 0 {
+                            tabItem.badgeValue = "\((self.gnomeCount?.count)!)"
+                        }
                     }
-                }
             case.failure(let error):
                 print("error: \(error.localizedDescription)")
             }
         }
-        
-        /*
-        getComments(for: (gnome?.id)!) { (result) in
-            switch result {
-            case .success(let comments):
-                self.gnomeComments = comments
-                print(comments)
-                if let tabItems = self.gnomeCommentsBar.items as NSArray?
-                {
-                    let tabItem = tabItems[0] as! UITabBarItem
-                    tabItem.badgeValue = "\(comments.count)"
-                }
-            case .failure(let error):
-                fatalError("error: \(error.localizedDescription)")
-            }
-        }
-        */
         
         gnomeName.text = gnome?.name
         gnomeAge.text = "\(gnome!.age!)"
