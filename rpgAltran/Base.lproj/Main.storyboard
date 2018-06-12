@@ -75,8 +75,9 @@
                                 <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <tabBarItem systemItem="contacts" id="XO2-7P-zBF" userLabel="All"/>
-                                    <tabBarItem tag="1" systemItem="favorites" id="hOI-nA-rrw"/>
+                                    <tabBarItem title="Gnomes" image="user_group_man_woman" selectedImage="user_group_man_woman" id="XO2-7P-zBF" userLabel="All"/>
+                                    <tabBarItem tag="1" systemItem="favorites" id="hOI-nA-rrw" userLabel="Favourites"/>
+                                    <tabBarItem tag="2" title="Profile" image="user_male" selectedImage="user_male" id="59D-I0-NJn" userLabel="Profile"/>
                                 </items>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="FqW-jN-tRa"/>
@@ -132,6 +133,7 @@
                     </view>
                     <connections>
                         <outlet property="blurEffect" destination="Rew-Ek-cmd" id="bgI-ol-taR"/>
+                        <outlet property="btnAdvSearch" destination="Qgf-Al-plc" id="TJj-gu-eFW"/>
                         <outlet property="gnomesTable" destination="0cU-a0-Hx9" id="3ci-o0-RzZ"/>
                         <outlet property="searchBar" destination="KQl-Kf-13s" id="Z3v-tL-VTf"/>
                         <outlet property="tabBar" destination="XiI-vD-Koc" id="5DP-Eb-JGH"/>
@@ -139,11 +141,78 @@
                         <outlet property="tabBarFavourites" destination="hOI-nA-rrw" id="ZYo-ky-7bB"/>
                         <segue destination="wuc-Pn-CFU" kind="show" identifier="showGnomeDetail" id="YEq-sj-KvV"/>
                         <segue destination="Ejd-nA-yNO" kind="presentation" identifier="showAdvancedSearch" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="7tm-yE-m7q"/>
+                        <segue destination="EVK-mN-pPS" kind="presentation" identifier="showLoginScreen" modalPresentationStyle="overCurrentContext" modalTransitionStyle="flipHorizontal" id="Nb7-pr-wCc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.23188405797103" y="132.88043478260872"/>
+        </scene>
+        <!--Login Screen Controller-->
+        <scene sceneID="Sfz-0V-aT8">
+            <objects>
+                <viewController id="EVK-mN-pPS" customClass="LoginScreenController" customModule="rpgAltran" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W9k-a9-ati">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NJ0-Aq-4qx">
+                                <rect key="frame" x="16" y="140" width="343" height="358"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bWf-W4-L00">
+                                        <rect key="frame" x="8" y="143" width="95" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Obc-RI-VGV">
+                                        <rect key="frame" x="12" y="179" width="91" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fcs-qc-jFO">
+                                        <rect key="frame" x="123" y="139" width="212" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" textContentType="username"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qyu-jo-rDg">
+                                        <rect key="frame" x="123" y="175" width="212" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" textContentType="password"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tjb-k1-q0T">
+                                        <rect key="frame" x="108" y="231" width="127" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <state key="normal" title="Login"/>
+                                        <connections>
+                                            <action selector="btnLogin:" destination="EVK-mN-pPS" eventType="touchUpInside" id="3Gf-cy-sOY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="NJ0-Aq-4qx" firstAttribute="top" secondItem="uoe-e2-rpY" secondAttribute="top" constant="120" id="evj-wj-Lz7"/>
+                            <constraint firstItem="uoe-e2-rpY" firstAttribute="bottom" secondItem="NJ0-Aq-4qx" secondAttribute="bottom" constant="169" id="giZ-gs-hAH"/>
+                            <constraint firstItem="NJ0-Aq-4qx" firstAttribute="leading" secondItem="uoe-e2-rpY" secondAttribute="leading" constant="16" id="hZr-rr-ln1"/>
+                            <constraint firstItem="uoe-e2-rpY" firstAttribute="trailing" secondItem="NJ0-Aq-4qx" secondAttribute="trailing" constant="16" id="z5I-nu-pDN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="uoe-e2-rpY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X2w-qv-E8Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="135" y="902"/>
         </scene>
         <!--Gnome Detail Controller-->
         <scene sceneID="ZjA-og-8Rw">
@@ -586,12 +655,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KCE-fB-ud9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="766" y="902"/>
+            <point key="canvasLocation" x="991" y="902"/>
         </scene>
     </scenes>
     <resources>
         <image name="chat" width="30" height="30"/>
         <image name="noFavourite" width="256" height="256"/>
         <image name="nofriends" width="95" height="107"/>
+        <image name="user_group_man_woman" width="30" height="30"/>
+        <image name="user_male" width="30" height="30"/>
     </resources>
 </document>

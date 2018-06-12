@@ -106,15 +106,21 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
     @objc func singleTapping(_ sender: UITapGestureRecognizer) {
         if self.favourite {
             gnomeFavourite.image = UIImage(named: "noFavourite")
-            let searchPredicate = NSPredicate(format: "SELF.id != %i", (gnome?.id)!)
-            let array = (instanceOfVC.brastlewarkFiltered as NSArray).filtered(using: searchPredicate)
-            instanceOfVC.brastlewarkFiltered = array as NSArray
             FavouritesUtils.shared.removeFavourite(id: (gnome?.id)!)
         } else {
             gnomeFavourite.image = UIImage(named: "favourite")
-            instanceOfVC.brastlewarkFiltered.adding(gnome!)
             FavouritesUtils.shared.addFavourite(id: (gnome?.id)!)
         }
+        
+        // Sólo actualizaremos el contenido de la tabla cuando estamos en Favoritos
+        if instanceOfVC.tabBar.selectedItem == instanceOfVC.tabBar.items?[1] {
+            var searchPredicate : NSPredicate
+            let arrayFavourites = FavouritesUtils.shared.getFavourites()
+            searchPredicate = NSPredicate(format: "SELF.id IN %@", arrayFavourites)
+            let array = (instanceOfVC.brastlewark as NSArray).filtered(using: searchPredicate)
+            instanceOfVC.brastlewarkFiltered = array as NSArray
+        }
+        
         self.favourite = !self.favourite
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()

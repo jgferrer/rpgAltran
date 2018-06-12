@@ -28,7 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tabBarAll: UITabBarItem!
     @IBOutlet weak var tabBarFavourites: UITabBarItem!
     @IBOutlet weak var blurEffect: UIVisualEffectView!
-    
+    @IBOutlet weak var btnAdvSearch: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,15 +82,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     @objc private func refreshData(_ sender: Any) {
-        tabBar.selectedItem = tabBar.items?[0]
-        getJsonFromUrl()
+        if tabBar.selectedItem == tabBar.items?[0] {
+            getJsonFromUrl()
+        } else {
+            filterGnomes(searchText: "FAVOURITES")
+            self.refreshControl.endRefreshing()
+        }
     }
     
     func getJsonFromUrl(){
         let url = NSURL(string: self.URLGnomes)
         URLSession.shared.dataTask(with: (url as URL?)!, completionHandler: {(data, response, error) -> Void in
 
-            guard let data = data else { return }
+            guard let data = data else {
+                OperationQueue.main.addOperation({
+                    self.refreshControl.endRefreshing()
+                    
+                    let notification = RNNotificationView()
+                    notification.titleFont = UIFont.boldSystemFont(ofSize: 16)
+                    notification.subtitleFont = UIFont.systemFont(ofSize: 14)
+                    notification.show(withImage: UIImage(named: "error"),
+                                      title: "Error",
+                                      message: "Unable to retrieve gnome data",
+                                      duration: 3,
+                                      iconSize: CGSize(width: 32, height: 32), // Optional setup
+                        onTap: {
+                            print("Did tap notification")
+                    }
+                    )
+                })
+                return
+            }
             
             if let jsonObj = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary {
                 //print(jsonObj!.value(forKey: "Brastlewark")!)
@@ -200,6 +222,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let vc = segue.destination as? AdvancedSearchController
             vc?.professions = getDifferentProfessions()
             vc?.instanceOfVC = self
+        } else if segue.identifier == "showLoginScreen" {
+            let vc = segue.destination as? LoginScreenController
+            vc?.instanceOfVC = self
         }
     }
     
@@ -220,10 +245,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item.tag == 0 {
             searchBar.enable()
+            btnAdvSearch.isEnabled = true
             allGnomes()
-        } else {
+        } else if item.tag == 1 {
             searchBar.disable()
+            btnAdvSearch.isEnabled = false
             filterGnomes(searchText: "FAVOURITES")
+        } else {
+            self.blurEffect.isHidden = false
+            performSegue(withIdentifier: "showLoginScreen", sender: self)
         }
     }
     
