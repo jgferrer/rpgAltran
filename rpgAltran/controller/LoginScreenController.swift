@@ -11,7 +11,10 @@ import UIKit
 
 class LoginScreenController: UIViewController {
     
-    var instanceOfVC: ViewController!
+    var instanceOfVC: AnyObject!
+    
+    @IBOutlet weak var txtUsername: UITextField!
+    @IBOutlet weak var txtPassword: UITextField!
     
     override func viewDidLoad()
     {
@@ -21,9 +24,56 @@ class LoginScreenController: UIViewController {
         view.isOpaque = false
     }
     
+    @IBAction func btnCancel(_ sender: UIButton) {
+        Auth().logout()
+        if object_getClassName(self.instanceOfVC) == object_getClassName(ViewController()) {
+            let viewController = self.instanceOfVC as! ViewController
+            viewController.blurEffect.isHidden = true
+            viewController.tabBar.selectedItem = viewController.tabBar.items?[0]
+            viewController.searchBar.enable()
+            viewController.btnAdvSearch.isEnabled = true
+            viewController.allGnomes()
+            self.dismiss(animated: true, completion: nil)
+        } else if object_getClassName(self.instanceOfVC) == object_getClassName(GnomeCommentsController()) {
+            let viewController = self.instanceOfVC as! GnomeCommentsController
+            viewController.blurEffect.isHidden = true
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     @IBAction func btnLogin(_ sender: Any) {
-        instanceOfVC.blurEffect.isHidden = true
-        self.dismiss(animated: true, completion: nil)
+        
+        let username = txtUsername.text!
+        let password = txtPassword.text!
+        
+        Auth().login(username: username, password: password) { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    print("Login OK!")
+                    if object_getClassName(self.instanceOfVC) == object_getClassName(ViewController()) {
+                        let viewController = self.instanceOfVC as! ViewController
+                        viewController.blurEffect.isHidden = true
+                        self.dismiss(animated: true, completion: nil)
+                    } else if object_getClassName(self.instanceOfVC) == object_getClassName(GnomeCommentsController()) {
+                        let viewController = self.instanceOfVC as! GnomeCommentsController
+                        viewController.blurEffect.isHidden = true
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    
+                    
+                }
+            case .failure:
+                let message = "Could not login. Check your credentials and try again"
+                print(message)
+                ErrorPresenter.showError(message: message, on: self)
+            }
+        }
     }
     
 }
+

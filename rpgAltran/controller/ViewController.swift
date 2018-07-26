@@ -65,7 +65,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if results?.count != 0 {
                 let arrayGnomes = NSKeyedUnarchiver.unarchiveObject(with: results![0].value(forKey: "arrayData") as! Data)
                 self.brastlewark = arrayGnomes as! NSArray
-                self.brastlewarkFiltered = self.brastlewark
+                
+                self.brastlewarkFiltered = self.brastlewark.sortAlphabetically(by: "name")
+                //self.brastlewarkFiltered = self.brastlewark
+                
                 self.refreshControl.endRefreshing()
                 self.gnomesTable.reloadData()
                 ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
@@ -119,7 +122,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 if let gnomeArray = jsonObj!.value(forKey: "Brastlewark") as? NSArray {
                     self.brastlewark = gnomeArray
-                    self.brastlewarkFiltered = self.brastlewark
+                    self.brastlewarkFiltered = self.brastlewark.sortAlphabetically(by: "name")
                 }
                 
                 OperationQueue.main.addOperation({
@@ -257,11 +260,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    private func allGnomes() {
+    func allGnomes() {
         self.searchBar.text = ""
-        gnomesTable.setContentOffset(.zero, animated: false)
-        self.brastlewarkFiltered = self.brastlewark
-        self.gnomesTable.reloadData()
+        self.brastlewarkFiltered = brastlewark.sortAlphabetically(by: "name")
+        
+        DispatchQueue.main.async(execute: {
+            self.gnomesTable.reloadData()
+            self.gnomesTable.contentOffset = .zero
+            self.gnomesTable.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        })
+        
     }
     
     private func filterGnomes(searchText: String) {
@@ -275,8 +283,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             searchPredicate = NSPredicate(format: "SELF.name CONTAINS[c] %@", searchText)
         }
         
-        let array = (self.brastlewark as NSArray).filtered(using: searchPredicate)
-        self.brastlewarkFiltered = array as NSArray
+        let array = (self.brastlewark as NSArray).filtered(using: searchPredicate) as NSArray
+        self.brastlewarkFiltered = array.sortAlphabetically(by: "name")
+        
+        //self.brastlewarkFiltered = array as NSArray
+        
         self.gnomesTable.reloadData()
     }
     
@@ -303,6 +314,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
+}
+
+extension NSArray {
+    func sortAlphabetically(by filter: String) -> NSArray {
+        let descriptor: NSSortDescriptor = NSSortDescriptor(key: filter, ascending: true)
+        let sortedResults: NSArray = self.sortedArray(using: [descriptor]) as NSArray
+        return sortedResults
+    }
 }
 
 extension UISearchBar {
