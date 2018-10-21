@@ -17,6 +17,7 @@ class GnomeCommentsController: UIViewController, UITableViewDelegate, UITableVie
     var gnomeComments: [Comment] = []
     @IBOutlet weak var blurEffect: UIVisualEffectView!
     @IBOutlet weak var gnomeCommentsTable: UITableView!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,8 @@ class GnomeCommentsController: UIViewController, UITableViewDelegate, UITableVie
                     ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
             }
         }
+        
+        navigationBar.topItem?.title = gnome?.name
         
         gnomeCommentsTable.delegate = self
         gnomeCommentsTable.dataSource = self
@@ -77,15 +80,19 @@ class GnomeCommentsController: UIViewController, UITableViewDelegate, UITableVie
         if segue.identifier == "showLoginScreen" {
             let vc = segue.destination as? LoginScreenController
             vc?.instanceOfVC = self
+        } else if segue.identifier == "addComment" {
+            let vc = segue.destination as? AddCommentController
+            vc?.instanceOfVC = self
         }
     }
     
     @IBAction func addComment(_ sender: UIBarButtonItem) {
+        self.blurEffect.isHidden = false
         if Auth().token != nil {
             print("Logged with token: " + Auth().token!)
+            performSegue(withIdentifier: "addComment", sender: self)
         } else {
             print("Not logged!!")
-            self.blurEffect.isHidden = false
             performSegue(withIdentifier: "showLoginScreen", sender: self)
         }
     }

@@ -23,6 +23,7 @@
 		656C629520DC1B1800843349 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656C629420DC1B1800843349 /* User.swift */; };
 		656C629720DC1C6800843349 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656C629620DC1C6800843349 /* Token.swift */; };
 		656C629920DC245600843349 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656C629820DC245600843349 /* Auth.swift */; };
+		65718174217CD4B800E81A0D /* AddCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65718173217CD4B800E81A0D /* AddCommentController.swift */; };
 		657A61CE2073F46F0064A50D /* ViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657A61CD2073F46F0064A50D /* ViewControllerUtils.swift */; };
 		6583F90D20820FB6008D9300 /* rpgAltran.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6583F90B20820FB5008D9300 /* rpgAltran.xcdatamodeld */; };
 		6596D1BE20CDA43C009F685B /* LoginScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6596D1BD20CDA43C009F685B /* LoginScreenController.swift */; };
@@ -50,6 +51,7 @@
 		656C629420DC1B1800843349 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		656C629620DC1C6800843349 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		656C629820DC245600843349 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		65718173217CD4B800E81A0D /* AddCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentController.swift; sourceTree = "<group>"; };
 		657A61CD2073F46F0064A50D /* ViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerUtils.swift; sourceTree = "<group>"; };
 		6583F90C20820FB6008D9300 /* rpgAltran.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = rpgAltran.xcdatamodel; sourceTree = "<group>"; };
 		6596D1BD20CDA43C009F685B /* LoginScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				651C6E8A20768838001AF565 /* GnomeDetailController.swift */,
 				6566D76720C4471400D7AF5A /* GnomeCommentsController.swift */,
 				6596D1BD20CDA43C009F685B /* LoginScreenController.swift */,
+				65718173217CD4B800E81A0D /* AddCommentController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				652DF86D209DE55600D7E315 /* FavouritesUtils.swift in Sources */,
 				651A158E20A20A5900261D5B /* AdvancedSearchController.swift in Sources */,
 				65318AFD20714D5B007144EA /* Gnome.swift in Sources */,
+				65718174217CD4B800E81A0D /* AddCommentController.swift in Sources */,
 				6583F90D20820FB6008D9300 /* rpgAltran.xcdatamodeld in Sources */,
 				6566D76A20C4510A00D7AF5A /* GnomeCommentTableViewCell.swift in Sources */,
 				651C6E8B20768838001AF565 /* GnomeDetailController.swift in Sources */,
