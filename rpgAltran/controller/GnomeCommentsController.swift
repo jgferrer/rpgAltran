@@ -15,6 +15,9 @@ class GnomeCommentsController: UIViewController, UITableViewDelegate, UITableVie
     
     var gnome: Gnome?
     var gnomeComments: [Comment] = []
+    
+    var instanceOfVC: AnyObject!
+    
     @IBOutlet weak var blurEffect: UIVisualEffectView!
     @IBOutlet weak var gnomeCommentsTable: UITableView!
     @IBOutlet weak var navigationBar: UINavigationBar!
@@ -22,32 +25,10 @@ class GnomeCommentsController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         ViewControllerUtils.shared.showActivityIndicator(uiView: self.view)
-        getComments(for: (gnome?.id)!) { (result) in
-            switch result {
-                case .success(let comments):
-                    self.gnomeComments = comments
-                    self.gnomeCommentsTable.reloadData()
-                    ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
-                case .failure(let error):
-                    //fatalError("error: \(error.localizedDescription)")
-                    let notification = RNNotificationView()
-                    notification.titleFont = UIFont.boldSystemFont(ofSize: 16)
-                    notification.subtitleFont = UIFont.systemFont(ofSize: 14)
-                    notification.show(withImage: UIImage(named: "error"),
-                                      title: "Error",
-                                      message: "error: \(error.localizedDescription)",
-                                      duration: 3,
-                                      iconSize: CGSize(width: 32, height: 32), // Optional setup
-                        onTap: {
-                            print("Did tap notification")
-                    }
-                    )
-                    ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
-            }
-        }
+        
+        loadData()
         
         navigationBar.topItem?.title = gnome?.name
-        
         gnomeCommentsTable.delegate = self
         gnomeCommentsTable.dataSource = self
         
@@ -75,6 +56,36 @@ class GnomeCommentsController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
+    public func loadData() {
+        getComments(for: (gnome?.id)!) { (result) in
+            switch result {
+            case .success(let comments):
+                self.gnomeComments = comments
+                // Ordenar comentarios de más reciente a más antiguo
+                self.gnomeComments = self.gnomeComments.sorted() { $0.dateCreated > $1.dateCreated }
+                
+                self.gnomeCommentsTable.reloadData()
+                ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
+            case .failure(let error):
+                //fatalError("error: \(error.localizedDescription)")
+                let notification = RNNotificationView()
+                notification.titleFont = UIFont.boldSystemFont(ofSize: 16)
+                notification.subtitleFont = UIFont.systemFont(ofSize: 14)
+                notification.show(withImage: UIImage(named: "error"),
+                                  title: "Error",
+                                  message: "error: \(error.localizedDescription)",
+                    duration: 3,
+                    iconSize: CGSize(width: 32, height: 32), // Optional setup
+                    onTap: {
+                        print("Did tap notification")
+                }
+                )
+                ViewControllerUtils.shared.hideActivityIndicator(uiView: self.view)
+            }
+        }
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "showLoginScreen" {
@@ -83,6 +94,7 @@ class GnomeCommentsController: UIViewController, UITableViewDelegate, UITableVie
         } else if segue.identifier == "addComment" {
             let vc = segue.destination as? AddCommentController
             vc?.instanceOfVC = self
+            vc?.gnomeId = gnome?.id
         }
     }
     
@@ -98,6 +110,8 @@ class GnomeCommentsController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func goBack(_ sender: Any) {
+        let viewController = self.instanceOfVC as! GnomeDetailController
+        viewController.gnomeCommentsCount()
         self.dismiss(animated: true, completion: nil)
     }
 }

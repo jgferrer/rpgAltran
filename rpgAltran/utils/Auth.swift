@@ -15,15 +15,25 @@ enum AuthResult {
 }
 
 class Auth {
-    static let defaultsKey = "RPGALTRAN-API-KEY"
+    static let defaultsTokenKey = "RPGALTRAN-API-TOKEN-KEY"
+    static let defaultsUsernameKey = "RPGALTRAN-API-USERNAME-KEY"
     let defaults = UserDefaults.standard
     
     var token: String? {
         get {
-            return defaults.string(forKey: Auth.defaultsKey)
+            return defaults.string(forKey: Auth.defaultsTokenKey)
         }
         set {
-            defaults.set(newValue, forKey: Auth.defaultsKey)
+            defaults.set(newValue, forKey: Auth.defaultsTokenKey)
+        }
+    }
+    
+    var username: String? {
+        get {
+            return defaults.string(forKey: Auth.defaultsUsernameKey)
+        }
+        set {
+            defaults.set(newValue, forKey: Auth.defaultsUsernameKey)
         }
     }
     
@@ -56,6 +66,7 @@ class Auth {
             do {
                 let token = try JSONDecoder().decode(Token.self, from: jsonData)
                 self.token = token.token
+                self.username = username
                 completion(.success)
             } catch {
                 completion(.failure)

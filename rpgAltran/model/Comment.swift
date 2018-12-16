@@ -21,6 +21,20 @@ struct Comment: Codable {
     let dateCreated: Date
 }
 
+final class CreateComment: Codable {
+    var title: String
+    var comment: String
+    var userId: String
+    var gnomeId: Int16
+    
+    init(title: String, comment: String, userId: String, gnomeId: Int16){
+        self.title = title
+        self.comment = comment
+        self.userId = userId
+        self.gnomeId = gnomeId
+    }
+}
+
 enum Result<Value> {
     case success(Value)
     case failure(Error)
@@ -58,26 +72,7 @@ func getComments(for gnomeId: Int16, completion: ((Result<[Comment]>) -> Void)?)
                 
                 // Create an instance of JSONDecoder to decode the JSON data to our
                 // Codable struct
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
-                    let container = try decoder.singleValueContainer()
-                    let dateStr = try container.decode(String.self)
-                    
-                    let formatter = DateFormatter()
-                    formatter.calendar = Calendar(identifier: .iso8601)
-                    formatter.locale = Locale(identifier: "en_US_POSIX")
-                    formatter.timeZone = TimeZone(secondsFromGMT: 0)
-                    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
-                    if let date = formatter.date(from: dateStr) {
-                        return date
-                    }
-                    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXXXX"
-                    if let date = formatter.date(from: dateStr) {
-                        return date
-                    }
-                    throw DateError.invalidDate
-                })
-                
+                let decoder = dataDecoder()
                 
                 do {
                     // We would use Comment.self for JSON representing a single Comment
@@ -135,4 +130,71 @@ func getCommentsCount(for gnomeId: Int16, completion: ((Result<GnomeCount>) -> V
     }
     
     task.resume()
+}
+
+func postComment(for gnomeComment: CreateComment, completion: ((Result<Comment>) -> Void)?) {
+    var urlComponents = URLComponents()
+    urlComponents.scheme = "https"
+    urlComponents.host = "jgferrer.synology.me"
+    urlComponents.port = 1326
+    urlComponents.path = "/api/comments/"
+    
+    guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    
+    let jsonEncoder = JSONEncoder()
+    let jsonData = try? jsonEncoder.encode(gnomeComment)
+    
+    request.setValue("Bearer \(Auth().token!)", forHTTPHeaderField: "Authorization")
+    request.httpBody = jsonData
+    request.addValue("application/json", forHTTPHeaderField:"Content-Type")
+
+    
+    let config = URLSessionConfiguration.default
+    let session = URLSession(configuration: config)
+    let task = session.dataTask(with: request) { (responseData, response, responseError) in
+        DispatchQueue.main.async {
+            if let error = responseError {
+                completion?(.failure(error))
+            } else if let jsonData = responseData {
+                let decoder = dataDecoder()
+                do {
+                    let result = try decoder.decode(Comment.self, from: jsonData)
+                    completion?(.success(result))
+                } catch {
+                    completion?(.failure(error))
+                }
+            } else {
+                let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Data was not retrieved from request"]) as Error
+                completion?(.failure(error))
+            }
+        }
+    }
+    
+    task.resume()
+}
+
+func dataDecoder () -> JSONDecoder {
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
+        let container = try decoder.singleValueContainer()
+        let dateStr = try container.decode(String.self)
+        
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+        if let date = formatter.date(from: dateStr) {
+            return date
+        }
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXXXX"
+        if let date = formatter.date(from: dateStr) {
+            return date
+        }
+        throw DateError.invalidDate
+    })
+    return decoder
 }

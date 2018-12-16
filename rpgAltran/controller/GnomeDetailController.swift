@@ -42,23 +42,7 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
             tabItem.isEnabled = false
         }
         
-        // OBTENER NÚMERO DE COMENTARIOS DEL GNOMO SELECCIONADO
-        getCommentsCount(for: (gnome?.id)!) { (result) in
-            switch result {
-            case .success(let result):
-                self.gnomeCount = result
-                    if let tabItems = self.gnomeCommentsBar.items as NSArray?
-                    {
-                        let tabItem = tabItems[0] as! UITabBarItem
-                        tabItem.isEnabled = true
-                        if (self.gnomeCount?.count)! > 0 {
-                            tabItem.badgeValue = "\((self.gnomeCount?.count)!)"
-                        }
-                    }
-            case.failure(let error):
-                print("error: \(error.localizedDescription)")
-            }
-        }
+        gnomeCommentsCount()
         
         gnomeName.text = gnome?.name
         gnomeAge.text = "\(gnome!.age!)"
@@ -101,6 +85,26 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         }
         gnomeProfessions.sizeToFit()
         
+    }
+    
+    public func gnomeCommentsCount() {
+        // OBTENER NÚMERO DE COMENTARIOS DEL GNOMO SELECCIONADO
+        getCommentsCount(for: (gnome?.id)!) { (result) in
+            switch result {
+            case .success(let result):
+                self.gnomeCount = result
+                if let tabItems = self.gnomeCommentsBar.items as NSArray?
+                {
+                    let tabItem = tabItems[0] as! UITabBarItem
+                    tabItem.isEnabled = true
+                    if (self.gnomeCount?.count)! > 0 {
+                        tabItem.badgeValue = "\((self.gnomeCount?.count)!)"
+                    }
+                }
+            case.failure(let error):
+                print("error: \(error.localizedDescription)")
+            }
+        }
     }
     
     @objc func singleTapping(_ sender: UITapGestureRecognizer) {
@@ -172,6 +176,7 @@ class GnomeDetailController: UIViewController, UICollectionViewDelegate, UIColle
         if segue.identifier == "showGnomeComments" {
             let vc = segue.destination as? GnomeCommentsController
             vc?.gnome = gnome
+            vc?.instanceOfVC = self
         }
     }
     
