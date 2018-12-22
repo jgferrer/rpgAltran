@@ -31,6 +31,8 @@ class GnomeCommentsController: UIViewController, UITableViewDelegate, UITableVie
         navigationBar.topItem?.title = gnome?.name
         gnomeCommentsTable.delegate = self
         gnomeCommentsTable.dataSource = self
+        gnomeCommentsTable.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
+        gnomeCommentsTable.tableFooterView = UIView(frame: .zero)
         
     }
     
@@ -39,9 +41,9 @@ class GnomeCommentsController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        return 130
     }
-    
+ 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "gnomeCommentCell") as! GnomeCommentTableViewCell
         
