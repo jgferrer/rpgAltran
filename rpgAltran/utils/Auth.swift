@@ -14,6 +14,8 @@ enum AuthResult {
     case failure
 }
 
+typealias newUserJSON = [String: Any]
+
 class Auth {
     static let defaultsTokenKey = "RPGALTRAN-API-TOKEN-KEY"
     static let defaultsUsernameKey = "RPGALTRAN-API-USERNAME-KEY"
@@ -38,7 +40,7 @@ class Auth {
     }
     
     func login(username: String, password: String, completion: @escaping (AuthResult) -> Void) {
-        let path = "https://jgferrer.synology.me:1326/api/users/login"
+        let path = Constants.URLLoginPath
         guard let url = URL(string: path) else {
             fatalError()
         }
@@ -89,4 +91,58 @@ class Auth {
         }
          */
     }
+    
+    func createUser(username: String, password: String, completion: @escaping (AuthResult) -> Void) {
+        let path = Constants.URLCreateUserPath
+        let headers = [
+            "Content-Type": "application/x-www-form-urlencoded",
+            "cache-control": "no-cache"
+        ]
+        guard let url = URL(string: path) else {
+            fatalError()
+        }
+        guard let username64 = "\(username)"
+            .data(using: .utf8)?
+            .base64EncodedString()
+            else {
+                fatalError()
+        }
+        guard let password64 = "\(password)"
+            .data(using: .utf8)?
+            .base64EncodedString()
+            else {
+                fatalError()
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        let postData = NSMutableData(data: "username=\(username64)".data(using: String.Encoding.utf8)!)
+        postData.append("&password=\(password64)".data(using: String.Encoding.utf8)!)
+        
+        request.allHTTPHeaderFields = headers
+        request.httpBody = postData as Data
+        
+        let dataTask = URLSession.shared.dataTask(with: request) { data, response, _ in
+            guard
+                let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 200,
+                let jsonData = data
+                else {
+                    completion(.failure)
+                    return
+            }
+            
+            do {
+                let token = try JSONDecoder().decode(Token.self, from: jsonData)
+                self.token = token.token
+                self.username = username
+                completion(.success)
+            } catch {
+                completion(.failure)
+            }
+        }
+        dataTask.resume()
+    }
+    
 }

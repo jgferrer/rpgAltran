@@ -47,10 +47,10 @@ struct GnomeCount: Codable {
 
 func getComments(for gnomeId: Int16, completion: ((Result<[Comment]>) -> Void)?) {
     var urlComponents = URLComponents()
-    urlComponents.scheme = "https"
-    urlComponents.host = "jgferrer.synology.me"
-    urlComponents.port = 1326
-    urlComponents.path = "/api/comments/"
+    urlComponents.scheme = Constants.URLScheme
+    urlComponents.host = Constants.URLHost
+    urlComponents.port = Constants.URLPort
+    urlComponents.path = Constants.URLComments
     
     let gnomeIdItem = URLQueryItem(name: "gnomeId", value: "\(gnomeId)")
     urlComponents.queryItems = [gnomeIdItem]
@@ -95,10 +95,10 @@ func getComments(for gnomeId: Int16, completion: ((Result<[Comment]>) -> Void)?)
 
 func getCommentsCount(for gnomeId: Int16, completion: ((Result<GnomeCount>) -> Void)?) {
     var urlComponents = URLComponents()
-    urlComponents.scheme = "https"
-    urlComponents.host = "jgferrer.synology.me"
-    urlComponents.port = 1326
-    urlComponents.path = "/api/comments/count"
+    urlComponents.scheme = Constants.URLScheme
+    urlComponents.host = Constants.URLHost
+    urlComponents.port = Constants.URLPort
+    urlComponents.path = Constants.URLComments + "/count"
     
     let gnomeIdItem = URLQueryItem(name: "gnomeId", value: "\(gnomeId)")
     urlComponents.queryItems = [gnomeIdItem]
@@ -134,10 +134,10 @@ func getCommentsCount(for gnomeId: Int16, completion: ((Result<GnomeCount>) -> V
 
 func postComment(for gnomeComment: CreateComment, completion: ((Result<Comment>) -> Void)?) {
     var urlComponents = URLComponents()
-    urlComponents.scheme = "https"
-    urlComponents.host = "jgferrer.synology.me"
-    urlComponents.port = 1326
-    urlComponents.path = "/api/comments/"
+    urlComponents.scheme = Constants.URLScheme
+    urlComponents.host = Constants.URLHost
+    urlComponents.port = Constants.URLPort
+    urlComponents.path = Constants.URLComments
     
     guard let url = urlComponents.url else { fatalError("Could not create URL from components") }
     

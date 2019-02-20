@@ -19,7 +19,6 @@ class FavouritesUtils {
         return Static.instance
     }
     
-    
     // Añade el nombre del Gnomo a los favoritos
     open func addFavourite(id: Int16) {
         editFavourites(id: id, action: "ADD")

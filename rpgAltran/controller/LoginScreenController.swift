@@ -75,5 +75,36 @@ class LoginScreenController: UIViewController {
         }
     }
     
+    @IBAction func btnNewUser(_ sender: Any) {
+        let username = txtUsername.text!
+        let password = txtPassword.text!
+        
+        Auth().createUser(username: username, password: password) { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    print("Login OK!")
+                    if object_getClassName(self.instanceOfVC) == object_getClassName(ViewController()) {
+                        let viewController = self.instanceOfVC as! ViewController
+                        viewController.blurEffect.isHidden = true
+                        self.dismiss(animated: true, completion: nil)
+                    } else if object_getClassName(self.instanceOfVC) == object_getClassName(GnomeCommentsController()) {
+                        let viewController = self.instanceOfVC as! GnomeCommentsController
+                        viewController.blurEffect.isHidden = true
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    
+                    
+                }
+            case .failure:
+                let message = "Error creating user."
+                print(message)
+                ErrorPresenter.showError(message: message, on: self)
+            }
+        }
+        
+    }
 }
 

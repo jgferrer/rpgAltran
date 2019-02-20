@@ -15,9 +15,6 @@ import RNNotificationView
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UITabBarDelegate {
 
     private let refreshControl = UIRefreshControl()
-    
-    //let URLGnomes = "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json"
-    let URLGnomes = "https://jgferrer.synology.me:1326/api/json"
     var brastlewark : NSArray = []
     var brastlewarkFiltered : NSArray = []
     var gnomeSelected : Gnome?
@@ -94,7 +91,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func getJsonFromUrl(){
-        let url = NSURL(string: self.URLGnomes)
+        let url = NSURL(string: Constants.URLGnomes)
         URLSession.shared.dataTask(with: (url as URL?)!, completionHandler: {(data, response, error) -> Void in
 
             guard let data = data else {
