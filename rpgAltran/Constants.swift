@@ -18,7 +18,7 @@ struct Constants {
     
     
     static let URLLoginPath = URLScheme + "://" + URLHost + ":" + String(URLPort) + URLUsers + "login"
-    static let URLCreateUserPath = URLScheme + "://" + URLHost + ":" + String(URLPort) + URLUsers + "createUser"
+    static let URLCreateUserPath = URLScheme + "://" + URLHost + ":" + String(URLPort) + URLUsers + "create"
     static let URLGnomes = URLScheme + "://" + URLHost + ":" + String(URLPort) + "/api/json"
     
 }
